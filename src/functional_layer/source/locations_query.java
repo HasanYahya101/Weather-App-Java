@@ -116,7 +116,9 @@ class locations_query implements Location_Interfaces {
         // save into Locations.txt file
         try {
             BufferedWriter writer = new BufferedWriter(
-                    new FileWriter("./../../../assets/text_database_module/Locations.txt", true));
+                    new FileWriter(
+                            "assets\\\\text_database\\\\Locations.txt",
+                            true));
             writer.write(city + ", " + country + ", " + country_code + ", " + latitude + ", " + longitude);
             writer.newLine();
             writer.close();
