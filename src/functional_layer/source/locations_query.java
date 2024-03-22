@@ -1,6 +1,7 @@
 package functional_layer.source;
 
 import functional_layer.Location_Interfaces;
+import database_layer.textfile_module.location_save_interface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,7 +86,9 @@ class locations_query implements Location_Interfaces {
                 String longitude = response.toString().split("lon\":")[1].split(",\"")[0];
 
                 // add the location to the Locations.txt file in next line
-                flag = saveLocation_Names(city, country, country_code, latitude, longitude);
+                location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
+                flag = db_text_layer.saveLocation_Names(city, country,
+                        country_code, latitude, longitude);
 
             } else {
                 // Internet connection error
@@ -97,24 +100,6 @@ class locations_query implements Location_Interfaces {
         }
 
         return flag;
-    }
-
-    public boolean saveLocation_Names(String city, String country, String country_code, String latitude,
-            String longitude) {
-        // save into Locations.txt file
-        try {
-            BufferedWriter writer = new BufferedWriter(
-                    new FileWriter(
-                            "assets\\\\text_database\\\\Locations.txt",
-                            true));
-            writer.write(city + ", " + country + ", " + country_code + ", " + latitude + ", " + longitude);
-            writer.newLine();
-            writer.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public boolean addLocation_Names(String city, String country) {
