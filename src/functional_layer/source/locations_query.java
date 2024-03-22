@@ -77,24 +77,12 @@ class locations_query implements Location_Interfaces {
                 }
                 in.close();
 
-                // Print the response body for testing purposes
-                // System.out.println("Response Body: " + response.toString());
-
                 // extract country, country code, city, latitude and longitude from the response
                 String country = response.toString().split("country\":\"")[1].split("\",\"")[0];
                 String country_code = response.toString().split("country_code\":\"")[1].split("\",\"")[0];
                 String city = response.toString().split("city\":\"")[1].split("\",\"")[0];
                 String latitude = response.toString().split("lat\":")[1].split(",\"")[0];
                 String longitude = response.toString().split("lon\":")[1].split(",\"")[0];
-
-                // print them for testing purposes
-                /*
-                 * System.out.println("Country: " + country);
-                 * System.out.println("Country Code: " + country_code);
-                 * System.out.println("City: " + city);
-                 * System.out.println("Latitude: " + latitude);
-                 * System.out.println("Longitude: " + longitude);
-                 */
 
                 // add the location to the Locations.txt file in next line
                 flag = saveLocation_Names(city, country, country_code, latitude, longitude);
