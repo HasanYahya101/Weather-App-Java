@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
+import java.util.List;
 
 import config.API_Key;
 /*import java.io.BufferedReader;
@@ -82,9 +83,12 @@ class locations_query implements Location_Interfaces {
                 }
                 in.close();
 
+                // print the result in string
+                // System.out.println(response.toString());
+
                 // extract country, country code, city, latitude and longitude from the response
-                String country = response.toString().split("country\":\"")[1].split("\",\"")[0];
                 String country_code = response.toString().split("country_code\":\"")[1].split("\",\"")[0];
+                String country = response.toString().split("country\":\"")[1].split("\",\"")[0];
                 String city = response.toString().split("city\":\"")[1].split("\",\"")[0];
                 String latitude = response.toString().split("lat\":")[1].split(",\"")[0];
                 String longitude = response.toString().split("lon\":")[1].split(",\"")[0];
@@ -164,10 +168,28 @@ class locations_query implements Location_Interfaces {
         return true;
     }
 
+    public List<String> displayLocs() {
+        location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
+        java.util.List<location_save_interface.Locations> locations = db_text_layer.getLocations();
+        int index = 0;
+        System.out.println("Locations: ");
+        List<String> locs = new java.util.ArrayList<String>();
+        for (location_save_interface.Locations loc : locations) {
+            String temp = ++index + ". " +
+                    "City: " + loc.city + ", " + "Country: " + loc.country + ", " + "Country Code: "
+                    + loc.country_code
+                    + ", " + "Latitude: " + loc.latitude + ", "
+                    + "Longitude: " + loc.longitude;
+            locs.add(temp);
+        }
+        return locs;
+    }
+
     // main method for testing only
     public static void main(String[] args) {
         locations_query lq = new locations_query();
-        // lq.addLocation_Coordinates("35", "139");
-        lq.addLocation_Names("Lahore", "Pakistan");
+        // lq.addLocation_Coordinates("31.5497", "74.3436");
+        // lq.addLocation_Names("Lahore", "Pakistan");
+        lq.displayLocs();
     }
 }
