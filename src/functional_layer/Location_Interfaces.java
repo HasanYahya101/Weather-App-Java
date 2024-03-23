@@ -1,6 +1,14 @@
 package functional_layer;
 
-import java.util.List;
+import database_layer.textfile_module.location_save_interface;
+
+class Locations {
+    public String city;
+    public String country;
+    public String country_code;
+    public String latitude;
+    public String longitude;
+}
 
 public interface Location_Interfaces {
     // lati: latitude, longi: longitude which are parameters in API call.
@@ -8,5 +16,5 @@ public interface Location_Interfaces {
 
     public boolean addLocation_Names(String city, String country);
 
-    public List<String> displayLocs();
+    public java.util.List<location_save_interface.Locations> displayLocs();
 }

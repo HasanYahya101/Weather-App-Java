@@ -2,6 +2,7 @@ package functional_layer.source;
 
 import functional_layer.Location_Interfaces;
 import database_layer.textfile_module.location_save_interface;
+import database_layer.textfile_module.location_save_interface.Locations;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -168,21 +169,11 @@ class locations_query implements Location_Interfaces {
         return true;
     }
 
-    public List<String> displayLocs() {
+    public List<Locations> displayLocs() {
         location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
         java.util.List<location_save_interface.Locations> locations = db_text_layer.getLocations();
-        int index = 0;
-        System.out.println("Locations: ");
-        List<String> locs = new java.util.ArrayList<String>();
-        for (location_save_interface.Locations loc : locations) {
-            String temp = ++index + ". " +
-                    "City: " + loc.city + ", " + "Country: " + loc.country + ", " + "Country Code: "
-                    + loc.country_code
-                    + ", " + "Latitude: " + loc.latitude + ", "
-                    + "Longitude: " + loc.longitude;
-            locs.add(temp);
-        }
-        return locs;
+
+        return locations;
     }
 
     // main method for testing only
