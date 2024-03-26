@@ -180,7 +180,7 @@ class locations_query implements Location_Interfaces {
     public static void main(String[] args) {
         locations_query lq = new locations_query();
         // lq.addLocation_Coordinates("31.5497", "74.3436");
-        // lq.addLocation_Names("Lahore", "Pakistan");
-        lq.displayLocs();
+        lq.addLocation_Names("Islamabad", "Pakistan");
+        // lq.displayLocs();
     }
 }

@@ -1,2 +1,2 @@
 Lahore, Pakistan, pk, 31.5656822, 74.3141829
-Lahore, Pakistan, pk, 31.5559186, 74.3307495
+Islamabad, Pakistan, pk, 33.6938118, 73.0651511
