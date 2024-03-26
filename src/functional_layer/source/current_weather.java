@@ -160,6 +160,11 @@ public class current_weather implements current_weather_interface {
         }
     }
 
+    public List<Current_Conditions> return_current_conditions() {
+        database_layer.textfile_module.source.current_conditions cc_db = new database_layer.textfile_module.source.current_conditions();
+        return cc_db.return_current_conditions();
+    }
+
     // main for testing
     public static void main(String[] args) {
         current_weather cw = new current_weather();
