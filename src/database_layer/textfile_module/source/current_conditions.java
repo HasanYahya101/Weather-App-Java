@@ -9,6 +9,10 @@ import database_layer.textfile_module.current_conditions_interface;
 import functional_layer.current_weather_interface.Current_Conditions;
 
 public class current_conditions implements current_conditions_interface {
+    public current_conditions() {
+        // Does nothing is only a constructor
+    }
+
     public boolean saveCurrent_Conditions(Current_Conditions cc) {
         String lon = cc.lon;
         String lat = cc.lat;
@@ -147,6 +151,6 @@ public class current_conditions implements current_conditions_interface {
 
     // main to test the current_conditions class
     public static void main(String[] args) {
-        // your argument here
+        // write test here
     }
 }
