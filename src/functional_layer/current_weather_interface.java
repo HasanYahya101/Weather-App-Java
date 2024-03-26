@@ -1,5 +1,7 @@
 package functional_layer;
 
+import java.util.List;
+
 public interface current_weather_interface {
 
     class Current_Conditions {
@@ -30,4 +32,6 @@ public interface current_weather_interface {
     }
 
     public abstract Current_Conditions getCurrentWeather(String lati, String longi);
+
+    public abstract List<Current_Conditions> return_current_conditions();
 }
