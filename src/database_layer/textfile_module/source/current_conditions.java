@@ -144,4 +144,9 @@ public class current_conditions implements current_conditions_interface {
             saveCurrent_Conditions(cc_list.get(i));
         }
     }
+
+    // main to test the current_conditions class
+    public static void main(String[] args) {
+        // your argument here
+    }
 }
