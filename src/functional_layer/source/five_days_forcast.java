@@ -6,9 +6,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import functional_layer.*;
+import java.util.List;
 
 import functional_layer.current_weather_interface.Current_Conditions;
 import functional_layer.five_days_forcast_interface;
+
+import database_layer.textfile_module.source.five_days_save;
 
 public class five_days_forcast implements five_days_forcast_interface {
     /*
@@ -38,6 +41,20 @@ public class five_days_forcast implements five_days_forcast_interface {
     public five_days_data get5DaysForcast(String longi, String lati) {
         String apiKey = config.API_Key.getAPIKey();
         five_days_data fdd = null;
+
+        five_days_save fdss = new five_days_save();
+        fdss.delete_cache(); // delete the yesterday's cache
+
+        List<five_days_data> fdd_temp = fdss.read_Five_Days();
+
+        for (int i = 0; i < fdd_temp.size(); i++) {
+            if (fdd_temp.get(i).lat.equals(lati) && fdd_temp.get(i).lon.equals(longi)) {
+                fdd = fdd_temp.get(i);
+                return fdd;
+                // no need to call the API again as today data is still in cache
+            }
+        }
+
         // https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={APIkey}
         try {
             // Construct the URL for the API call
@@ -144,6 +161,8 @@ public class five_days_forcast implements five_days_forcast_interface {
             }
             // Close the connection
             connection.disconnect();
+            // save the data to cache
+            fdss.save_Five_Days(fdd);
             return fdd;
 
         } catch (IOException e) {
