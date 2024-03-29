@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import functional_layer.pollution_data_interface;
+import database_layer.textfile_module.source.pollution_data_save;
 
 public class pollution_data implements pollution_data_interface {
     private static String extractValue(String input, String start, String end) {
@@ -16,6 +18,16 @@ public class pollution_data implements pollution_data_interface {
     }
 
     public polution_data_struct getPollutionData(String longi, String lati) {
+        // save pollution data
+        pollution_data_save save_data = new pollution_data_save();
+        save_data.remove_pollution_cache();
+        List<polution_data_struct> data = save_data.get_all_data();
+        // check if data is already saved for the location
+        for (polution_data_struct d : data) {
+            if (d.lat.equals(lati) && d.lon.equals(longi)) {
+                return d;
+            }
+        }
         String apiKey = config.API_Key.getAPIKey();
         try {
             // Construct the URL for the API call
@@ -99,6 +111,8 @@ public class pollution_data implements pollution_data_interface {
 
             // Close the connection
             connection.disconnect();
+            // save the data
+            save_data.savePollutionData(pds);
 
             return pds;
 
