@@ -3,6 +3,7 @@ package ui_layer.terminal;
 import java.util.Scanner;
 import functional_layer.*;
 import functional_layer.source.*;
+import database_layer.textfile_module.*;
 
 public class terminal {
 
@@ -22,11 +23,12 @@ public class terminal {
         System.out.println("9. Show Air Pollution data.");
         System.out.println("10. Generate Notification for poor air quality.");
         System.out.println("11. Show pollution Gases Information.");
-        System.out.println("12. Exit.");
+        System.out.println("12. View all Locations.");
+        System.out.println("13. Exit.");
         System.out.println("");
         System.out.println("Enter your choice: ");
         choice = scanner.nextInt();
-        if (choice > 12 || choice < 1) {
+        if (choice > 13 || choice < 1) {
             System.out.println("Invalid choice. Please enter a valid choice.");
             System.out.println("");
             run();
@@ -54,7 +56,10 @@ public class terminal {
             } else if (choice == 11) {
                 System.out.println("Show pollution Gases Information.");
             } else if (choice == 12) {
-                System.out.println("Exit.");
+                display_locations();
+            } else if (choice == 13) {
+                System.out.println("Exiting the program.");
+                System.exit(0);
             }
         }
         scanner.close();
@@ -106,6 +111,25 @@ public class terminal {
             scanner.close();
             run();
         }
+    }
+
+    public void display_locations() {
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found.");
+        } else {
+            System.out.println("Locations:");
+            for (location_save_interface.Locations location : locations) {
+                System.out.println("City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                        + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                        + location.longitude);
+            }
+        }
+        System.out.println("Press any key to continue.");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        run();
     }
 
     // main for testing only
