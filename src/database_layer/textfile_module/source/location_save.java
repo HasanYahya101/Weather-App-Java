@@ -34,8 +34,8 @@ public class location_save implements location_save_interface {
             String line;
             Locations loc = null;
             while ((line = reader.readLine()) != null) {
-                String country = line.split(", ")[0];
-                String city = line.split(", ")[1];
+                String city = line.split(", ")[0];
+                String country = line.split(", ")[1];
                 String country_code = line.split(", ")[2];
                 String latitude = line.split(", ")[3];
                 String longitude = line.split(", ")[4];
@@ -58,7 +58,12 @@ public class location_save implements location_save_interface {
 
     // main for testing only
     public static void main(String[] args) {
-        // location_save db_text_layer = new location_save();
-        // List<Locations> locations = db_text_layer.getLocations();
+        location_save db_text_layer = new location_save();
+        List<Locations> locations = db_text_layer.getLocations();
+        // get locations and print them
+        for (Locations loc : locations) {
+            System.out.println(loc.city + ", " + loc.country + ", " + loc.country_code + ", " + loc.latitude + ", "
+                    + loc.longitude);
+        }
     }
 }
