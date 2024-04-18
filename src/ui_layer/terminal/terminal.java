@@ -132,10 +132,6 @@ public class terminal {
         run();
     }
 
-    public void showCurrentWeatherConditions() {
-        // show current weather conditions
-    }
-
     // main for testing only
     public static void main(String[] args) {
         // call run method
