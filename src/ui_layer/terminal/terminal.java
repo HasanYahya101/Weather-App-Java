@@ -129,6 +129,8 @@ public class terminal {
         System.out.println("Press any key to continue.");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
+        // scanner.close(); // not closing because it will close the System.in (a leak
+        // shoudn't be a problem)
         run();
     }
 
