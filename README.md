@@ -72,3 +72,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
     "cod":200
 }
 ```
+
+## Note:
+
+The Project is completly implemented in `VS Code`.
