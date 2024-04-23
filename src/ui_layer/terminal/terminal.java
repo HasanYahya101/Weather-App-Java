@@ -5,8 +5,15 @@ import functional_layer.*;
 import functional_layer.source.*;
 import database_layer.textfile_module.*;
 import functional_layer.current_weather_interface;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class terminal {
+    private static LocalDateTime unixTimestampToLocalDateTime(long unixTimestamp) {
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp), ZoneId.of("UTC"));
+    }
 
     public void run() {
         System.out.print("\033[H\033[2J"); // clear the terminal
@@ -99,10 +106,20 @@ public class terminal {
             current_weather_interface cw = new functional_layer.source.current_weather();
             functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
                     longitude);
-            System.out.println("Data:");
+            // convert from string to long
+            long sunriseUnixTimestamp = Long.parseLong(cc.sunrise);
+            long sunsetUnixTimestamp = Long.parseLong(cc.sunset);
+            // Convert Unix timestamps to LocalDateTime objects
+            LocalDateTime sunriseDateTime = unixTimestampToLocalDateTime(sunriseUnixTimestamp);
+            LocalDateTime sunsetDateTime = unixTimestampToLocalDateTime(sunsetUnixTimestamp);
+            // Format the LocalDateTime objects
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedSunrise = sunriseDateTime.format(formatter);
+            String formattedSunset = sunsetDateTime.format(formatter);
+            System.out.println("Data (Format: yyyy-MM-dd HH:mm:ss):");
             // print in separate lines
-            System.out.println("Sunrise: " + cc.sunrise);
-            System.out.println("Sunset: " + cc.sunset);
+            System.out.println("Sunrise: " + formattedSunrise + " (Unix Timestamp: " + sunriseUnixTimestamp + ")");
+            System.out.println("Sunset: " + formattedSunset + " (Unix Timestamp: " + sunsetUnixTimestamp + ")");
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
