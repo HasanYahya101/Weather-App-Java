@@ -24,11 +24,25 @@ public class current_weather implements current_weather_interface {
         cc_db.remove_prev_cache();
         List<Current_Conditions> temp_conditions = cc_db.return_current_conditions();
         boolean flag = false;
+        String given_lati_before_decimal = lati.substring(0, lati.indexOf("."));
+        String given_longi_before_decimal = longi.substring(0, longi.indexOf("."));
+        String given_lati_2_digits_after_decimal = lati.substring(lati.indexOf(".") + 1, lati.indexOf(".") + 3);
+        String given_longi_2_digits_after_decimal = longi.substring(longi.indexOf(".") + 1, longi.indexOf(".") + 3);
         if (temp_conditions != null && temp_conditions.size() > 0) {
             // check if the data is already in the cache
-            flag = false;
+            // System.out.println("Taken: " + lati + " " + longi);
             for (Current_Conditions temp : temp_conditions) {
-                if (temp.lat.equals(lati) && temp.lon.equals(longi)) {
+                // System.out.println("Database: " + temp.lat + " " + temp.lon);
+                String database_lati_before_decimal = temp.lat.substring(0, temp.lat.indexOf("."));
+                String database_longi_before_decimal = temp.lon.substring(0, temp.lon.indexOf("."));
+                String database_lati_2_digits_after_decimal = temp.lat.substring(temp.lat.indexOf(".") + 1,
+                        temp.lat.indexOf(".") + 3);
+                String database_longi_2_digits_after_decimal = temp.lon.substring(temp.lon.indexOf(".") + 1,
+                        temp.lon.indexOf(".") + 3);
+                if (given_lati_before_decimal.equals(database_lati_before_decimal)
+                        && given_longi_before_decimal.equals(database_longi_before_decimal)
+                        && given_lati_2_digits_after_decimal.equals(database_lati_2_digits_after_decimal)
+                        && given_longi_2_digits_after_decimal.equals(database_longi_2_digits_after_decimal)) {
                     cc = temp;
                     flag = true;
                     break;
