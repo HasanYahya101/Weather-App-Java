@@ -7,6 +7,10 @@ import java.util.List;
 
 import database_layer.textfile_module.current_conditions_interface;
 import functional_layer.current_weather_interface.Current_Conditions;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 public class current_conditions implements current_conditions_interface {
     public current_conditions() {
@@ -110,7 +114,7 @@ public class current_conditions implements current_conditions_interface {
 
     public void remove_prev_cache() {
         List<Current_Conditions> cc_list = return_current_conditions();
-        if (cc_list.size() == 0 || cc_list == null) {
+        if (cc_list == null || cc_list.size() == 0) {
             return;
         }
         // remove all dates data from cc_list

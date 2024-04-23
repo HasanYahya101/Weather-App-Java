@@ -4,6 +4,7 @@ import java.util.Scanner;
 import functional_layer.*;
 import functional_layer.source.*;
 import database_layer.textfile_module.*;
+import functional_layer.current_weather_interface;
 
 public class terminal {
 
@@ -38,7 +39,7 @@ public class terminal {
             } else if (choice == 2) {
                 addLocationbyCoordinates();
             } else if (choice == 3) {
-                System.out.println("Show Current Weather Conditions.");
+                show_curr_conditions();
             } else if (choice == 4) {
                 System.out.println("Show \"Feels like, minimum and maximum temperature\".");
             } else if (choice == 5) {
@@ -63,6 +64,71 @@ public class terminal {
             }
         }
         scanner.close();
+    }
+
+    public void show_curr_conditions() {
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found. Please add a location first.");
+            System.out.println("Press any key to continue.");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            run();
+        } else {
+            System.out.println("Locations:");
+            int i = 1;
+            for (location_save_interface.Locations location : locations) {
+                System.out
+                        .println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                                + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                                + location.longitude);
+                i++;
+            }
+            System.out.println("Enter the index of Location: ");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            while (index > locations.size() || index < 1) {
+                System.out.println("Invalid index. Please enter a valid index.");
+                index = scanner.nextInt();
+                scanner.nextLine();
+            }
+            String latitude = locations.get(index - 1).latitude;
+            String longitude = locations.get(index - 1).longitude;
+            current_weather_interface cw = new functional_layer.source.current_weather();
+            functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
+                    longitude);
+            System.out.println("Current Weather Conditions:");
+            // print in separate lines
+            System.out.println("Longitude: " + cc.lon);
+            System.out.println("Latitude: " + cc.lat);
+            // System.out.println("ID: " + cc.id);
+            System.out.println("Main: " + cc.main);
+            System.out.println("Description: " + cc.description);
+            // System.out.println("Icon: " + cc.icon);
+            System.out.println("Temperature: " + cc.temp);
+            System.out.println("Feels Like: " + cc.feels_like);
+            System.out.println("Minimum Temperature: " + cc.temp_min);
+            System.out.println("Maximum Temperature: " + cc.temp_max);
+            System.out.println("Pressure: " + cc.pressure);
+            System.out.println("Humidity: " + cc.humidity);
+            System.out.println("Visibility: " + cc.visibility);
+            System.out.println("Wind Speed: " + cc.wind_speed);
+            System.out.println("Wind Degree: " + cc.wind_deg);
+            System.out.println("Gust: " + cc.gust);
+            System.out.println("Rain in last 1 hour: " + cc.rain_1hr);
+            System.out.println("Clouds: " + cc.clouds_all);
+            System.out.println("Sunrise: " + cc.sunrise);
+            System.out.println("Sunset: " + cc.sunset);
+            // System.out.println("Timezone: " + cc.timezone);
+            // System.out.println("Date: " + cc.date);
+            // System.out.println("Month: " + cc.month);
+            // System.out.println("Year: " + cc.year);
+            System.out.println("Press any key to continue.");
+            // create a system command
+            scanner.nextLine();
+            run();
+        }
     }
 
     public void addLocationByCityAndCountryName() {
