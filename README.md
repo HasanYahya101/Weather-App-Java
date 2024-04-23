@@ -17,7 +17,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ### Current Weather:
 
-```
+```json
 {
     "coord":{
         "lon":73.0652,
