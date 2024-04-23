@@ -88,13 +88,13 @@ public class current_conditions implements current_conditions_interface {
                     cc.wind_speed = data[13];
                     cc.wind_deg = data[14];
                     cc.gust = data[15];
-                    cc.clouds_all = data[17];
-                    cc.sunrise = data[18];
-                    cc.sunset = data[19];
-                    cc.timezone = data[20];
-                    cc.date = data[21];
-                    cc.month = data[22];
-                    cc.year = data[23];
+                    cc.clouds_all = data[16];
+                    cc.sunrise = data[17];
+                    cc.sunset = data[18];
+                    cc.timezone = data[19];
+                    cc.date = data[20];
+                    cc.month = data[21];
+                    cc.year = data[22];
 
                     cc_list.add(cc);
                 }

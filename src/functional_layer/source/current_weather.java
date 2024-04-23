@@ -62,8 +62,8 @@ public class current_weather implements current_weather_interface {
                 in.close();
 
                 // Print to test response
-                System.out.println(response.toString());
-                System.exit(0);
+                // System.out.println(response.toString());
+                // System.exit(0);
 
                 String responseString = response.toString();
                 String lon;

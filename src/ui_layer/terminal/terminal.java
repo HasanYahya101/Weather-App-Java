@@ -88,6 +88,7 @@ public class terminal {
             System.out.println("Enter the index of Location: ");
             Scanner scanner = new Scanner(System.in);
             int index = scanner.nextInt();
+            scanner.nextLine();
             while (index > locations.size() || index < 1) {
                 System.out.println("Invalid index. Please enter a valid index.");
                 index = scanner.nextInt();
@@ -102,10 +103,8 @@ public class terminal {
             // print in separate lines
             System.out.println("Longitude: " + cc.lon);
             System.out.println("Latitude: " + cc.lat);
-            // System.out.println("ID: " + cc.id);
             System.out.println("Main: " + cc.main);
             System.out.println("Description: " + cc.description);
-            // System.out.println("Icon: " + cc.icon);
             System.out.println("Temperature: " + cc.temp);
             System.out.println("Feels Like: " + cc.feels_like);
             System.out.println("Minimum Temperature: " + cc.temp_min);
@@ -119,10 +118,6 @@ public class terminal {
             System.out.println("Clouds: " + cc.clouds_all);
             System.out.println("Sunrise: " + cc.sunrise);
             System.out.println("Sunset: " + cc.sunset);
-            // System.out.println("Timezone: " + cc.timezone);
-            // System.out.println("Date: " + cc.date);
-            // System.out.println("Month: " + cc.month);
-            // System.out.println("Year: " + cc.year);
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
