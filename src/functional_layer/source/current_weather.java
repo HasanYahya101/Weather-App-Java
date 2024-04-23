@@ -16,11 +16,6 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 
 public class current_weather implements current_weather_interface {
-    private static String extractValue(String input, String start, String end) {
-        int startIndex = input.indexOf(start) + start.length();
-        int endIndex = input.indexOf(end, startIndex);
-        return input.substring(startIndex, endIndex);
-    }
 
     public Current_Conditions getCurrentWeather(String lati, String longi) {
         String apiKey = config.API_Key.getAPIKey();
@@ -67,8 +62,8 @@ public class current_weather implements current_weather_interface {
                 in.close();
 
                 // Print to test response
-                // System.out.println(response.toString());
-                // System.exit(0);
+                System.out.println(response.toString());
+                System.exit(0);
 
                 String responseString = response.toString();
                 String lon;
@@ -102,28 +97,100 @@ public class current_weather implements current_weather_interface {
                 lat = coord.get("lat").toString();
                 JSONArray weather = (JSONArray) json.get("weather");
                 JSONObject weather0 = (JSONObject) weather.get(0);
-                id = weather0.get("id").toString();
-                main = weather0.get("main").toString();
-                description = weather0.get("description").toString();
-                icon = weather0.get("icon").toString();
+                if (weather0.get("id") == null) {
+                    id = "null";
+                } else {
+                    id = weather0.get("id").toString();
+                }
+                if (weather0.get("main") == null) {
+                    main = "null";
+                } else {
+                    main = weather0.get("main").toString();
+                }
+                if (weather0.get("description") == null) {
+                    description = "null";
+                } else {
+                    description = weather0.get("description").toString();
+                }
+                if (weather0.get("icon") == null) {
+                    icon = "null";
+                } else {
+                    icon = weather0.get("icon").toString();
+                }
                 JSONObject main_obj = (JSONObject) json.get("main");
-                temp = main_obj.get("temp").toString();
-                feels_like = main_obj.get("feels_like").toString();
-                temp_min = main_obj.get("temp_min").toString();
-                temp_max = main_obj.get("temp_max").toString();
-                pressure = main_obj.get("pressure").toString();
-                humidity = main_obj.get("humidity").toString();
-                visibility = json.get("visibility").toString();
+                if (main_obj.get("temp") == null) {
+                    temp = "null";
+                } else {
+                    temp = main_obj.get("temp").toString();
+                }
+                if (main_obj.get("feels_like") == null) {
+                    feels_like = "null";
+                } else {
+                    feels_like = main_obj.get("feels_like").toString();
+                }
+                if (main_obj.get("temp_min") == null) {
+                    temp_min = "null";
+                } else {
+                    temp_min = main_obj.get("temp_min").toString();
+                }
+                if (main_obj.get("temp_max") == null) {
+                    temp_max = "null";
+                } else {
+                    temp_max = main_obj.get("temp_max").toString();
+                }
+                if (main_obj.get("pressure") == null) {
+                    pressure = "null";
+                } else {
+                    pressure = main_obj.get("pressure").toString();
+                }
+                if (main_obj.get("humidity") == null) {
+                    humidity = "null";
+                } else {
+                    humidity = main_obj.get("humidity").toString();
+                }
+                if (json.get("visibility") == null) {
+                    visibility = "null";
+                } else {
+                    visibility = json.get("visibility").toString();
+                }
                 JSONObject wind = (JSONObject) json.get("wind");
-                wind_speed = wind.get("speed").toString();
-                wind_deg = wind.get("deg").toString();
-                gust = wind.get("gust").toString();
+                if (wind.get("speed") == null) {
+                    wind_speed = "0";
+                } else {
+                    wind_speed = wind.get("speed").toString();
+                }
+                if (wind.get("deg") == null) {
+                    wind_deg = "0";
+                } else {
+                    wind_deg = wind.get("deg").toString();
+                }
+                if (wind.get("gust") == null) {
+                    gust = "0";
+                } else {
+                    gust = wind.get("gust").toString();
+                }
                 JSONObject clouds = (JSONObject) json.get("clouds");
-                clouds_all = clouds.get("all").toString();
+                if (clouds.get("all") == null) {
+                    clouds_all = "0";
+                } else {
+                    clouds_all = clouds.get("all").toString();
+                }
                 JSONObject sys = (JSONObject) json.get("sys");
-                sunrise = sys.get("sunrise").toString();
-                sunset = sys.get("sunset").toString();
-                timezone = json.get("timezone").toString();
+                if (sys.get("sunrise") == null) {
+                    sunrise = "null";
+                } else {
+                    sunrise = sys.get("sunrise").toString();
+                }
+                if (sys.get("sunset") == null) {
+                    sunset = "null";
+                } else {
+                    sunset = sys.get("sunset").toString();
+                }
+                if (json.get("timezone") == null) {
+                    timezone = "null";
+                } else {
+                    timezone = json.get("timezone").toString();
+                }
 
                 // get the current date, month and year
                 String dateday = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date());
@@ -239,7 +306,7 @@ public class current_weather implements current_weather_interface {
          * // System.out.println("Year: " + cc.year);
          */
         current_weather cw = new current_weather();
-        cw.getCurrentWeather("33.6938118",
-                "73.0651511");
+        cw.getCurrentWeather("31.5656822",
+                "74.3141829");
     }
 }
