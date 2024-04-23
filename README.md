@@ -1,3 +1,12 @@
+## Config Keys:
+
+Create a file named `config.properties` similar to the `example.config.properties` in the root folder of the project. Then insert values similar to this example for both API's. First is for OpenWeatherMap API and Second is `geoapify.com` API Key.
+
+```config.properties
+api.key = ahdbhdbhcbdbdainxiaixhidhid88ueed
+geolocation.api = cjubduubaujbjdbjbdjbjdbjabjbj
+```
+
 ## Folder Structure
 
 The workspace contains two folders by default, where:
