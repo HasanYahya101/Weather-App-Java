@@ -32,13 +32,15 @@ public class locations_query implements Location_Interfaces {
         // get locs and check if lat and lon already exists
         location_save_interface dbl = new database_layer.textfile_module.source.location_save();
         java.util.List<location_save_interface.Locations> locations = dbl.getLocations();
-        for (location_save_interface.Locations loc : locations) {
-            if (loc.latitude == lati && loc.longitude == longi) {
-                // print error
-                System.out.println("Latitude and Longitude already exists.");
-                return false;
-            }
-        }
+        /*
+         * for (location_save_interface.Locations loc : locations) {
+         * if (loc.latitude.equals(lati) && loc.longitude.equals(longi)) {
+         * // print error
+         * System.out.println("Latitude and Longitude already exists.");
+         * return false;
+         * }
+         * }
+         */
         // API call to add location by coordinates.
         // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API
         // key}
@@ -103,6 +105,17 @@ public class locations_query implements Location_Interfaces {
                 String city = response.toString().split("city\":\"")[1].split("\",\"")[0];
                 String latitude = response.toString().split("lat\":")[1].split(",\"")[0];
                 String longitude = response.toString().split("lon\":")[1].split(",\"")[0];
+
+                // check for duplicates
+                String new_lat = latitude;
+                String new_lon = longitude;
+                for (location_save_interface.Locations loc : locations) {
+                    if (loc.latitude.equals(new_lat) && loc.longitude.equals(new_lon)) {
+                        // print error
+                        System.out.println("Latitude and Longitude already exist.");
+                        return false;
+                    }
+                }
 
                 // add the location to the Locations.txt file in next line
                 location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();

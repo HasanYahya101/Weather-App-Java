@@ -93,7 +93,7 @@ public class terminal {
         lati = scn.nextLine();
         System.out.println("Enter Longitude: ");
         lon = scn.nextLine();
-        scn.close();
+        // scn.close();
         Location_Interfaces lq = new functional_layer.source.locations_query();
         boolean flag = lq.addLocation_Coordinates(lati, lon);
         if (flag == false) {
@@ -101,14 +101,14 @@ public class terminal {
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            scanner.close();
+            // scanner.close();
             run();
         } else {
             System.out.println("Location added successfully.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            scanner.close();
+            // scanner.close();
             run();
         }
     }
