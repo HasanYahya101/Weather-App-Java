@@ -21,7 +21,6 @@ public interface current_weather_interface {
         public String wind_speed;
         public String wind_deg;
         public String gust;
-        public String rain_1hr;
         public String clouds_all;
         public String sunrise;
         public String sunset;

@@ -10,6 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 public class current_weather implements current_weather_interface {
     private static String extractValue(String input, String start, String end) {
@@ -67,27 +71,59 @@ public class current_weather implements current_weather_interface {
                 // System.exit(0);
 
                 String responseString = response.toString();
-                String lon = extractValue(responseString, "\"lon\":", ",");
-                String lat = extractValue(responseString, "\"lat\":", "}");
-                String id = extractValue(responseString, "\"id\":", ",");
-                String main = extractValue(responseString, "\"main\":\"", "\",");
-                String description = extractValue(responseString, "\"description\":\"", "\",");
-                String icon = extractValue(responseString, "\"icon\":\"", "\"}");
-                String temp = extractValue(responseString, "\"temp\":", ",");
-                String feels_like = extractValue(responseString, "\"feels_like\":", ",");
-                String temp_min = extractValue(responseString, "\"temp_min\":", ",");
-                String temp_max = extractValue(responseString, "\"temp_max\":", ",");
-                String pressure = extractValue(responseString, "\"pressure\":", ",");
-                String humidity = extractValue(responseString, "\"humidity\":", "}");
-                String visibility = extractValue(responseString, "\"visibility\":", ",");
-                String wind_speed = extractValue(responseString, "\"speed\":", ",");
-                String wind_deg = extractValue(responseString, "\"deg\":", ",");
-                String gust = extractValue(responseString, "\"gust\":", "}");
-                String rain_1hr = extractValue(responseString, "\"1h\":", "}");
-                String clouds_all = extractValue(responseString, "\"all\":", "}");
-                String sunrise = extractValue(responseString, "\"sunrise\":", ",");
-                String sunset = extractValue(responseString, "\"sunset\":", "}");
-                String timezone = extractValue(responseString, "\"timezone\":", ",");
+                String lon;
+                String lat;
+                String id;
+                String main;
+                String description;
+                String icon;
+                String temp;
+                String feels_like;
+                String temp_min;
+                String temp_max;
+                String pressure;
+                String humidity;
+                String visibility;
+                String wind_speed;
+                String wind_deg;
+                String gust;
+                String clouds_all;
+                String sunrise;
+                String sunset;
+                String timezone;
+
+                JSONParser parser;
+                JSONObject json;
+                // using json library to parse the response
+                parser = new JSONParser();
+                json = (JSONObject) parser.parse(responseString);
+                JSONObject coord = (JSONObject) json.get("coord");
+                lon = coord.get("lon").toString();
+                lat = coord.get("lat").toString();
+                JSONArray weather = (JSONArray) json.get("weather");
+                JSONObject weather0 = (JSONObject) weather.get(0);
+                id = weather0.get("id").toString();
+                main = weather0.get("main").toString();
+                description = weather0.get("description").toString();
+                icon = weather0.get("icon").toString();
+                JSONObject main_obj = (JSONObject) json.get("main");
+                temp = main_obj.get("temp").toString();
+                feels_like = main_obj.get("feels_like").toString();
+                temp_min = main_obj.get("temp_min").toString();
+                temp_max = main_obj.get("temp_max").toString();
+                pressure = main_obj.get("pressure").toString();
+                humidity = main_obj.get("humidity").toString();
+                visibility = json.get("visibility").toString();
+                JSONObject wind = (JSONObject) json.get("wind");
+                wind_speed = wind.get("speed").toString();
+                wind_deg = wind.get("deg").toString();
+                gust = wind.get("gust").toString();
+                JSONObject clouds = (JSONObject) json.get("clouds");
+                clouds_all = clouds.get("all").toString();
+                JSONObject sys = (JSONObject) json.get("sys");
+                sunrise = sys.get("sunrise").toString();
+                sunset = sys.get("sunset").toString();
+                timezone = json.get("timezone").toString();
 
                 // get the current date, month and year
                 String dateday = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date());
@@ -113,7 +149,6 @@ public class current_weather implements current_weather_interface {
                 cc.wind_speed = wind_speed;
                 cc.wind_deg = wind_deg;
                 cc.gust = gust;
-                cc.rain_1hr = rain_1hr;
                 cc.clouds_all = clouds_all;
                 cc.sunrise = sunrise;
                 cc.sunset = sunset;
@@ -139,7 +174,6 @@ public class current_weather implements current_weather_interface {
                 // System.out.println("wind_speed: " + wind_speed);
                 // System.out.println("wind_deg: " + wind_deg);
                 // System.out.println("gust: " + gust);
-                // System.out.println("rain_1hr: " + rain_1hr);
                 // System.out.println("clouds_all: " + clouds_all);
                 // System.out.println("sunrise: " + sunrise);
                 // System.out.println("sunset: " + sunset);
@@ -157,9 +191,12 @@ public class current_weather implements current_weather_interface {
             } catch (IOException e) {
                 e.printStackTrace();
                 // Handle other exceptions here
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
             return cc;
+
         }
     }
 
@@ -193,7 +230,6 @@ public class current_weather implements current_weather_interface {
          * System.out.println("Wind Speed: " + cc.wind_speed);
          * System.out.println("Wind Degree: " + cc.wind_deg);
          * System.out.println("Gust: " + cc.gust);
-         * // System.out.println("Rain in last 1 hour: " + cc.rain_1hr);
          * System.out.println("Clouds: " + cc.clouds_all);
          * System.out.println("Sunrise: " + cc.sunrise);
          * System.out.println("Sunset: " + cc.sunset);

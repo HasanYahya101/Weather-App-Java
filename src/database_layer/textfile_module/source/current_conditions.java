@@ -7,10 +7,6 @@ import java.util.List;
 
 import database_layer.textfile_module.current_conditions_interface;
 import functional_layer.current_weather_interface.Current_Conditions;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.json.simple.JSONArray;
 
 public class current_conditions implements current_conditions_interface {
     public current_conditions() {
@@ -34,7 +30,6 @@ public class current_conditions implements current_conditions_interface {
         String wind_speed = cc.wind_speed;
         String wind_deg = cc.wind_deg;
         String gust = cc.gust;
-        String rain_1hr = cc.rain_1hr;
         String clouds_all = cc.clouds_all;
         String sunrise = cc.sunrise;
         String sunset = cc.sunset;
@@ -50,7 +45,7 @@ public class current_conditions implements current_conditions_interface {
                             true));
             writer.write(lon + "," + lat + "," + id + "," + main + "," + description + "," + icon + "," + temp + ","
                     + feels_like + "," + temp_min + "," + temp_max + "," + pressure + "," + humidity + "," + visibility
-                    + "," + wind_speed + "," + wind_deg + "," + gust + "," + rain_1hr + "," + clouds_all + "," + sunrise
+                    + "," + wind_speed + "," + wind_deg + "," + gust + "," + clouds_all + "," + sunrise
                     + "," + sunset + "," + timezone + "," + date + "," + month + "," + year);
             writer.newLine();
             writer.close();
@@ -93,7 +88,6 @@ public class current_conditions implements current_conditions_interface {
                     cc.wind_speed = data[13];
                     cc.wind_deg = data[14];
                     cc.gust = data[15];
-                    cc.rain_1hr = data[16];
                     cc.clouds_all = data[17];
                     cc.sunrise = data[18];
                     cc.sunset = data[19];

@@ -116,7 +116,6 @@ public class terminal {
             System.out.println("Wind Speed: " + cc.wind_speed);
             System.out.println("Wind Degree: " + cc.wind_deg);
             System.out.println("Gust: " + cc.gust);
-            System.out.println("Rain in last 1 hour: " + cc.rain_1hr);
             System.out.println("Clouds: " + cc.clouds_all);
             System.out.println("Sunrise: " + cc.sunrise);
             System.out.println("Sunset: " + cc.sunset);
