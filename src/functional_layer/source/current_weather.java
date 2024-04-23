@@ -274,37 +274,6 @@ public class current_weather implements current_weather_interface {
 
     // main for testing
     public static void main(String[] args) {
-        /*
-         * current_weather cw = new current_weather();
-         * functional_layer.current_weather_interface.Current_Conditions cc =
-         * cw.getCurrentWeather("33.6938118",
-         * "73.0651511");
-         * System.out.println("Current Weather Conditions:");
-         * // print in separate lines
-         * System.out.println("Longitude: " + cc.lon);
-         * System.out.println("Latitude: " + cc.lat);
-         * // System.out.println("ID: " + cc.id);
-         * System.out.println("Main: " + cc.main);
-         * System.out.println("Description: " + cc.description);
-         * // System.out.println("Icon: " + cc.icon);
-         * System.out.println("Temperature: " + cc.temp);
-         * System.out.println("Feels Like: " + cc.feels_like);
-         * System.out.println("Minimum Temperature: " + cc.temp_min);
-         * System.out.println("Maximum Temperature: " + cc.temp_max);
-         * System.out.println("Pressure: " + cc.pressure);
-         * System.out.println("Humidity: " + cc.humidity);
-         * System.out.println("Visibility: " + cc.visibility);
-         * System.out.println("Wind Speed: " + cc.wind_speed);
-         * System.out.println("Wind Degree: " + cc.wind_deg);
-         * System.out.println("Gust: " + cc.gust);
-         * System.out.println("Clouds: " + cc.clouds_all);
-         * System.out.println("Sunrise: " + cc.sunrise);
-         * System.out.println("Sunset: " + cc.sunset);
-         * // System.out.println("Timezone: " + cc.timezone);
-         * // System.out.println("Date: " + cc.date);
-         * // System.out.println("Month: " + cc.month);
-         * // System.out.println("Year: " + cc.year);
-         */
         current_weather cw = new current_weather();
         cw.getCurrentWeather("31.5656822",
                 "74.3141829");
