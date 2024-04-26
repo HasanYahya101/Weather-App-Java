@@ -7,6 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import functional_layer.*;
 import java.util.List;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 import functional_layer.current_weather_interface.Current_Conditions;
 import functional_layer.five_days_forcast_interface;
@@ -92,6 +96,7 @@ public class five_days_forcast implements five_days_forcast_interface {
 
             // Print to test response
             System.out.println(response.toString());
+            System.exit(0);
 
             String[] forecasts = response.toString().split("\"dt\":");
 
@@ -176,6 +181,6 @@ public class five_days_forcast implements five_days_forcast_interface {
     // main function to test functionality
     public static void main(String[] args) {
         five_days_forcast fdf = new five_days_forcast();
-        fdf.get5DaysForcast("40.7128", "-74.0060");
+        fdf.get5DaysForcast("31.5656822", "74.3141829");
     }
 }
