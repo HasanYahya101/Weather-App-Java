@@ -110,19 +110,29 @@ public class five_days_forcast implements five_days_forcast_interface {
                 JSONObject forecast = (JSONObject) list.get(i);
 
                 String dt = forecast.get("dt").toString();
-                String temp = ((JSONObject) forecast.get("main")).get("temp").toString();
-                String feels_like = ((JSONObject) forecast.get("main")).get("feels_like").toString();
-                String temp_min = ((JSONObject) forecast.get("main")).get("temp_min").toString();
-                String temp_max = ((JSONObject) forecast.get("main")).get("temp_max").toString();
-                String pressure = ((JSONObject) forecast.get("main")).get("pressure").toString();
-                String humidity = ((JSONObject) forecast.get("main")).get("humidity").toString();
-                String weather = ((JSONObject) ((JSONArray) forecast.get("weather")).get(0)).get("main").toString();
-                String icon = ((JSONObject) ((JSONArray) forecast.get("weather")).get(0)).get("icon").toString();
+                // first get main then individually extract values from it
+                JSONObject main_given = ((JSONObject) forecast.get("main"));
+                String temp = main_given.get("temp").toString();
+                String feels_like = main_given.get("feels_like").toString();
+                String temp_min = main_given.get("temp_min").toString();
+                String temp_max = main_given.get("temp_max").toString();
+                String pressure = main_given.get("pressure").toString();
+                String humidity = main_given.get("humidity").toString();
+                // first get weather then individually extract values from it
+                JSONArray weather_given = (JSONArray) forecast.get("weather");
+                // get the first element of the array
+                JSONObject weather_given_0 = (JSONObject) weather_given.get(0);
+                String weather = weather_given_0.get("main").toString();
+                String icon = weather_given_0.get("icon").toString();
                 String visibility = forecast.get("visibility").toString();
-                String wind_speed = ((JSONObject) forecast.get("wind")).get("speed").toString();
-                String wind_deg = ((JSONObject) forecast.get("wind")).get("deg").toString();
-                String gust = ((JSONObject) forecast.get("wind")).get("gust").toString();
-                String clouds_all = ((JSONObject) forecast.get("clouds")).get("all").toString();
+                // first get wind then individually extract values from it
+                JSONObject wind_given = ((JSONObject) forecast.get("wind"));
+                String wind_speed = wind_given.get("speed").toString();
+                String wind_deg = wind_given.get("deg").toString();
+                String gust = wind_given.get("gust").toString();
+                // first get clouds then individually extract values from it
+                JSONObject clouds_given = ((JSONObject) forecast.get("clouds"));
+                String clouds_all = clouds_given.get("all").toString();
                 String sunrise = forecast.get("sunrise").toString();
                 String sunset = forecast.get("sunset").toString();
                 String dt_text = forecast.get("dt_txt").toString();
