@@ -61,8 +61,8 @@ public class pollution_data implements pollution_data_interface {
             String year = dateday.substring(6, 10);
 
             // Print to test response
-            System.out.println(response.toString());
-            System.exit(0);
+            // System.out.println(response.toString());
+            // System.exit(0);
 
             // Extract the values from the response using json parser
             JSONParser parser = new JSONParser();
@@ -78,16 +78,61 @@ public class pollution_data implements pollution_data_interface {
             JSONObject components = (JSONObject) main.get("components");
             aqi = components.get("aqi").toString();
             // gases
-            String co = extractValue(response.toString(), "\"co\":", ",");
-            String no = extractValue(response.toString(), "\"no\":", ",");
-            String no2 = extractValue(response.toString(), "\"no2\":", ",");
-            String o3 = extractValue(response.toString(), "\"o3\":", ",");
-            String so2 = extractValue(response.toString(), "\"so2\":", ",");
-            String pm2_5 = extractValue(response.toString(), "\"pm2_5\":", ",");
-            String pm10 = extractValue(response.toString(), "\"pm10\":", ",");
-            String nh3 = extractValue(response.toString(), "\"nh3\":", "}");
+            String co;
+            if (components.get("co") == null) {
+                co = "null";
+            } else {
+                co = components.get("co").toString();
+            }
+            String no;
+            if (components.get("no") == null) {
+                no = "null";
+            } else {
+                no = components.get("no").toString();
+            }
+            String no2;
+            if (components.get("no2") == null) {
+                no2 = "null";
+            } else {
+                no2 = components.get("no2").toString();
+            }
+            String o3;
+            if (components.get("o3") == null) {
+                o3 = "null";
+            } else {
+                o3 = components.get("o3").toString();
+            }
+            String so2;
+            if (components.get("so2") == null) {
+                so2 = "null";
+            } else {
+                so2 = components.get("so2").toString();
+            }
+            String pm2_5;
+            if (components.get("pm2_5") == null) {
+                pm2_5 = "null";
+            } else {
+                pm2_5 = components.get("pm2_5").toString();
+            }
+            String pm10;
+            if (components.get("pm10") == null) {
+                pm10 = "null";
+            } else {
+                pm10 = components.get("pm10").toString();
+            }
+            String nh3;
+            if (components.get("nh3") == null) {
+                nh3 = "null";
+            } else {
+                nh3 = components.get("nh3").toString();
+            }
             // dt
-            String dt = extractValue(response.toString(), "\"dt\":", "}");
+            String dt;
+            if (main.get("dt") == null) {
+                dt = "null";
+            } else {
+                dt = main.get("dt").toString();
+            }
 
             // print all values for testing
             /*
