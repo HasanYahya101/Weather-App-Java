@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 import functional_layer.pollution_data_interface;
 import database_layer.textfile_module.source.pollution_data_save;
@@ -57,11 +61,22 @@ public class pollution_data implements pollution_data_interface {
             String year = dateday.substring(6, 10);
 
             // Print to test response
-            // System.out.println(response.toString());
+            System.out.println(response.toString());
+            System.exit(0);
+
+            // Extract the values from the response using json parser
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(response.toString());
+            // Extract the values from the response
 
             String lat = lati;
             String lon = longi;
-            String aqi = extractValue(response.toString(), "\"aqi\":", "}");
+            String aqi;
+            // Extract the aqi value
+            JSONArray list = (JSONArray) json.get("list");
+            JSONObject main = (JSONObject) list.get(0);
+            JSONObject components = (JSONObject) main.get("components");
+            aqi = components.get("aqi").toString();
             // gases
             String co = extractValue(response.toString(), "\"co\":", ",");
             String no = extractValue(response.toString(), "\"no\":", ",");
@@ -120,6 +135,10 @@ public class pollution_data implements pollution_data_interface {
             e.printStackTrace();
             // return null if an error occurs
             // return null;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // return null if an error occurs
+            // return null;
         }
         return null;
     }
@@ -127,6 +146,6 @@ public class pollution_data implements pollution_data_interface {
     // main for testing only
     public static void main(String[] args) {
         pollution_data pd = new pollution_data();
-        pd.getPollutionData("130", "21");
+        pd.getPollutionData("31.5656822", "74.3141829");
     }
 }

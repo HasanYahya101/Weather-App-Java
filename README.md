@@ -1554,6 +1554,40 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 ```
 </details>
 
+### Pollution Data:
+
+<details>
+<summary>Click me</summary>
+
+```json
+{
+    "coord":{
+        "lon":31.5657,
+        "lat":74.3142
+    },
+    "list":[
+        {
+            "main":{
+                "aqi":2
+            },
+            "components":{
+                "co":240.33,
+                "no":0,
+                "no2":0.04,
+                "o3":89.41,
+                "so2":0.22,
+                "pm2_5":0.5,
+                "pm10":0.8,
+                "nh3":0
+            },
+            "dt":1714171403
+        }
+    ]
+}
+```
+
+</details>
+
 ## Note:
 
 The Project is completly implemented in `VS Code` using Java Projects.
