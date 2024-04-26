@@ -26,6 +26,9 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ### Current Weather:
 
+<details>
+<summary>Click me</summary>
+
 ```json
 {
     "coord":{
@@ -72,8 +75,11 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
     "cod":200
 }
 ```
+</details>
 
 ## Five Days Forcast:
+<details>
+<summary>Click me</summary>
 
 ```json
 {
@@ -1546,6 +1552,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
     }
 }
 ```
+</details>
 
 ## Note:
 
