@@ -98,6 +98,7 @@ public class table_initialization implements table_interface {
                 stmt.execute(sql);
                 // Create table Forecast
                 sql = "CREATE TABLE IF NOT EXISTS Forecast (\n"
+                        + "    ID INTEGER NOT NULL,\n"
                         + "    lon TEXT NOT NULL,\n"
                         + "    lat TEXT NOT NULL,\n"
                         + "    date TEXT NOT NULL,\n"
