@@ -23,6 +23,9 @@ public interface pollution_data_interface {
         public String nh3;
         // dt
         public String dt;
+        // time
+        public String hour;
+        public String minutes;
     }
 
     public abstract List<polution_data_struct> return_stored_pop_data();

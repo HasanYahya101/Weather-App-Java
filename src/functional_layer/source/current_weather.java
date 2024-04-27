@@ -209,6 +209,11 @@ public class current_weather implements current_weather_interface {
                 String month = dateday.substring(3, 5);
                 String year = dateday.substring(6, 10);
 
+                // get current time
+                String time = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+                String hour = time.substring(0, 2);
+                String minutes = time.substring(3, 5);
+
                 // save data in its object
                 cc = new Current_Conditions();
                 cc.lon = lon;
@@ -234,6 +239,8 @@ public class current_weather implements current_weather_interface {
                 cc.date = date;
                 cc.month = month;
                 cc.year = year;
+                cc.hour = hour;
+                cc.minutes = minutes;
 
                 // print all for testing
                 // System.out.println("lon: " + lon);

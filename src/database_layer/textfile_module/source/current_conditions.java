@@ -37,6 +37,8 @@ public class current_conditions implements current_conditions_interface {
         String date = cc.date;
         String month = cc.month;
         String year = cc.year;
+        String hour = cc.hour;
+        String minutes = cc.minutes;
         // save into Current_Conditions.txt file
         try {
             BufferedWriter writer = new BufferedWriter(
@@ -46,7 +48,8 @@ public class current_conditions implements current_conditions_interface {
             writer.write(lon + "," + lat + "," + id + "," + main + "," + description + "," + icon + "," + temp + ","
                     + feels_like + "," + temp_min + "," + temp_max + "," + pressure + "," + humidity + "," + visibility
                     + "," + wind_speed + "," + wind_deg + "," + gust + "," + clouds_all + "," + sunrise
-                    + "," + sunset + "," + timezone + "," + date + "," + month + "," + year);
+                    + "," + sunset + "," + timezone + "," + date + "," + month + "," + year + "," + hour + ","
+                    + minutes);
             writer.newLine();
             writer.close();
             return true;
@@ -95,6 +98,8 @@ public class current_conditions implements current_conditions_interface {
                     cc.date = data[20];
                     cc.month = data[21];
                     cc.year = data[22];
+                    cc.hour = data[23];
+                    cc.minutes = data[24];
 
                     cc_list.add(cc);
                 }

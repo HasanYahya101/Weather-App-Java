@@ -8,6 +8,11 @@ class Locations {
     public String country_code;
     public String latitude;
     public String longitude;
+    public String Day;
+    public String Month;
+    public String Year;
+    public String Hour;
+    public String Minutes;
 }
 
 public interface Location_Interfaces {

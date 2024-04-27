@@ -86,6 +86,13 @@ public class five_days_forcast implements five_days_forcast_interface {
             fdd.month = month;
             fdd.year = year;
 
+            // get current time
+            String time = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+            String hour = time.substring(0, 2);
+            String minutes = time.substring(3, 5);
+            fdd.hour = hour;
+            fdd.minutes = minutes;
+
             fdd.list = new java.util.ArrayList<five_days_struct>();
 
             // Print to test response

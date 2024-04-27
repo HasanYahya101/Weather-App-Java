@@ -10,10 +10,15 @@ public interface location_save_interface {
         public String country_code;
         public String latitude;
         public String longitude;
+        public String Day;
+        public String Month;
+        public String Year;
+        public String Hour;
+        public String Minutes;
     }
 
     public abstract boolean saveLocation_Names(String city, String country, String country_code, String latitude,
-            String longitude);
+            String longitude, String date, String month, String year, String hour, String minutes);
 
     public abstract List<Locations> getLocations();
 }

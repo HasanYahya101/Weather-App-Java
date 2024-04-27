@@ -89,8 +89,8 @@ public class locations_query implements Location_Interfaces {
                 in.close();
 
                 // print the result in string
-                System.out.println(response.toString());
-                System.exit(0);
+                // System.out.println(response.toString());
+                // System.exit(0);
 
                 // extract country, country code, city, latitude and longitude from the response
                 String country_code = response.toString().split("country_code\":\"")[1].split("\",\"")[0];
@@ -109,11 +109,17 @@ public class locations_query implements Location_Interfaces {
                         return false;
                     }
                 }
-
+                String current_Date = java.time.LocalDate.now().toString();
+                String current_Time = java.time.LocalTime.now().toString();
+                String date = current_Date.split("-")[2];
+                String month = current_Date.split("-")[1];
+                String year = current_Date.split("-")[0];
+                String hour = current_Time.split(":")[0];
+                String minutes = current_Time.split(":")[1];
                 // add the location to the Locations.txt file in next line
                 location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
                 flag = db_text_layer.saveLocation_Names(city, country,
-                        country_code, latitude, longitude);
+                        country_code, latitude, longitude, date, month, year, hour, minutes);
 
             } else {
                 // Internet connection error
@@ -180,16 +186,27 @@ public class locations_query implements Location_Interfaces {
                 in.close();
 
                 // print response in string
-                System.out.println(response.toString());
-                System.exit(0);
+                // System.out.println(response.toString());
+                // System.exit(0);
 
                 String country_code = response.toString().split("country_code\":\"")[1].split("\",\"")[0];
                 String latitude = response.toString().split("lat\":")[1].split(",\"")[0];
                 String longitude = response.toString().split("lon\":")[1].split(",\"")[0];
 
+                // get time and date
+                String current_Date = java.time.LocalDate.now().toString();
+                String current_Time = java.time.LocalTime.now().toString();
+
+                String date = current_Date.split("-")[2];
+                String month = current_Date.split("-")[1];
+                String year = current_Date.split("-")[0];
+                String hour = current_Time.split(":")[0];
+                String minutes = current_Time.split(":")[1];
+
                 // add the location to the Locations.txt file in next line
                 location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
-                return db_text_layer.saveLocation_Names(city, country, country_code, latitude, longitude);
+                return db_text_layer.saveLocation_Names(city, country, country_code, latitude, longitude, date, month,
+                        year, hour, minutes);
             } else {
                 System.out.println("Error: " + http.getResponseMessage());
             }

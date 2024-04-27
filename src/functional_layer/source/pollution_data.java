@@ -55,6 +55,11 @@ public class pollution_data implements pollution_data_interface {
             String month = dateday.substring(3, 5);
             String year = dateday.substring(6, 10);
 
+            // get current time
+            String time = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+            String hour = time.substring(0, 2);
+            String minutes = time.substring(3, 5);
+
             // Print to test response
             // System.out.println(response.toString());
             // System.exit(0);
@@ -167,6 +172,9 @@ public class pollution_data implements pollution_data_interface {
             pds.nh3 = nh3;
             // dt
             pds.dt = dt;
+
+            pds.hour = hour;
+            pds.minutes = minutes;
 
             // Close the connection
             connection.disconnect();

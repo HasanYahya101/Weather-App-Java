@@ -20,6 +20,8 @@ public class five_days_save implements five_days_interface_save {
         data_to_be_inserted += fdd.date + ",";
         data_to_be_inserted += fdd.month + ",";
         data_to_be_inserted += fdd.year + ",";
+        data_to_be_inserted += fdd.hour + ",";
+        data_to_be_inserted += fdd.minutes + ",";
         data_to_be_inserted += fdd.lat + ",";
         data_to_be_inserted += fdd.lon + ","; // all data outside list
         // adding list data for all lists
@@ -84,8 +86,10 @@ public class five_days_save implements five_days_interface_save {
                 fdd_temp.year = data[2];
                 fdd_temp.lat = data[3];
                 fdd_temp.lon = data[4];
+                fdd_temp.hour = data[5];
+                fdd_temp.minutes = data[6];
                 fdd_temp.list = new java.util.ArrayList<five_days_struct>();
-                for (int i = 5; i < data.length; i += 17) {
+                for (int i = 7; i < data.length; i += 17) {
                     // List<five_days_struct> list;
                     five_days_struct fdd_struct = new five_days_struct();
                     fdd_struct.dt = data[i];

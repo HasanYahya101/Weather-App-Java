@@ -9,6 +9,8 @@ public interface five_days_forcast_interface {
         public String date;
         public String month;
         public String year;
+        public String hour;
+        public String minutes;
         public List<five_days_struct> list;
     }
 

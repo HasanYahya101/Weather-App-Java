@@ -23,7 +23,8 @@ public class pollution_data_save implements pollution_data_save_interface {
                     + ", " + struct.aqi + ", " + struct.dt + ", " + struct.nh3
                     + ", " + struct.co
                     + ", " + struct.no + ", " + struct.no2 + ", " + struct.o3 + ", " + struct.so2 + ", " + struct.pm2_5
-                    + ", " + struct.pm10);
+                    + ", " + struct.pm10
+                    + ", " + struct.hour + ", " + struct.minutes);
             writer.newLine();
             writer.close();
             return true;
@@ -59,6 +60,8 @@ public class pollution_data_save implements pollution_data_save_interface {
                 data.so2 = parts[12];
                 data.pm2_5 = parts[13];
                 data.pm10 = parts[14];
+                data.hour = parts[15];
+                data.minutes = parts[16];
 
                 // Add the populated data to the return list
                 return_data.add(data);
