@@ -55,7 +55,7 @@ public class terminal {
             } else if (choice == 7) {
                 System.out.println("Display timestamps for weather record.");
             } else if (choice == 8) {
-                System.out.println("Generate Notification for poor weather conditions.");
+                generate_noti_poor_weather();
             } else if (choice == 9) {
                 System.out.println("Show Air Pollution data.");
             } else if (choice == 10) {
@@ -70,6 +70,75 @@ public class terminal {
             }
         }
         scanner.close();
+    }
+
+    public void generate_noti_poor_weather() {
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found. Please add a location first.");
+            System.out.println("Press any key to continue.");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            run();
+        } else {
+            System.out.println("Locations:");
+            int i = 1;
+            for (location_save_interface.Locations location : locations) {
+                System.out
+                        .println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                                + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                                + location.longitude);
+                i++;
+            }
+            System.out.println("Enter the index of Location: ");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            while (index > locations.size() || index < 1) {
+                System.out.println("Invalid index. Please enter a valid index.");
+                index = scanner.nextInt();
+                scanner.nextLine();
+            }
+            String latitude = locations.get(index - 1).latitude;
+            String longitude = locations.get(index - 1).longitude;
+            current_weather_interface cw = new functional_layer.source.current_weather();
+            functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
+                    longitude);
+            System.out.println("Weather:");
+            // print in separate lines
+            System.out.println("Longitude: " + cc.lon);
+            System.out.println("Latitude: " + cc.lat);
+            System.out.println("Main: " + cc.main);
+            System.out.println("Description: " + cc.description);
+            System.out.println("Temperature: " + cc.temp);
+            System.out.println("Pressure: " + cc.pressure);
+            System.out.println("Humidity: " + cc.humidity);
+            System.out.println("Visibility: " + cc.visibility);
+            System.out.println("Wind Speed: " + cc.wind_speed);
+            System.out.println("Wind Degree: " + cc.wind_deg);
+            System.out.println("Gust: " + cc.gust);
+            System.out.println("Clouds: " + cc.clouds_all);
+            System.out.println("Press any key to continue.");
+            float temp = Float.parseFloat(cc.temp);
+            float wind_speed = Float.parseFloat(cc.wind_speed);
+            float humidity = Float.parseFloat(cc.humidity);
+            cc.main = cc.main.toLowerCase();
+            if (temp < 10 || humidity > 80 || temp > 30 || wind_speed > 30 || humidity > 90 || cc.main.contains("rain")
+                    || cc.main.contains("storm") || cc.main.contains("snow") || cc.main.contains("hail")
+                    || cc.main.contains("thunderstorm") || cc.main.contains("tornado") || cc.main.contains("hurricane")
+                    || cc.main.contains("tropical storm") || cc.main.contains("cyclone") || cc.main.contains("blizzard")
+                    || cc.main.contains("dust") || cc.main.contains("smoke") || cc.main.contains("fog")
+                    || cc.main.contains("mist") || cc.main.contains("haze") || cc.main.contains("sand")
+                    || cc.main.contains("ash") || cc.main.contains("squall") || cc.main.contains("tornado")) {
+                System.out.println("Poor Weather Conditions. Notification generated.");
+            } else {
+                System.out.println("Weather Conditions are normal.");
+            }
+            // create a system command
+            scanner.nextLine();
+            run();
+        }
     }
 
     public void show_weather_5days() {
