@@ -53,7 +53,7 @@ public class terminal {
             } else if (choice == 6) {
                 show_weather_5days();
             } else if (choice == 7) {
-                System.out.println("Display timestamps for weather record.");
+                display_timestamps();
             } else if (choice == 8) {
                 generate_noti_poor_weather();
             } else if (choice == 9) {
