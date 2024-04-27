@@ -72,6 +72,57 @@ public class terminal {
         scanner.close();
     }
 
+    public void display_timestamps() {
+        // creating objects of all classes
+        functional_layer.Location_Interfaces lq = new functional_layer.source.locations_query();
+        functional_layer.current_weather_interface cw = new functional_layer.source.current_weather();
+        functional_layer.five_days_forcast_interface fdf = new functional_layer.source.five_days_forcast();
+        functional_layer.pollution_data_interface pd = new functional_layer.source.pollution_data();
+        // creating data classes
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<functional_layer.current_weather_interface.Current_Conditions> cc = new java.util.ArrayList<functional_layer.current_weather_interface.Current_Conditions>();
+        java.util.List<functional_layer.five_days_forcast_interface.five_days_data> fdd = new java.util.ArrayList<functional_layer.five_days_forcast_interface.five_days_data>();
+        java.util.List<functional_layer.pollution_data_interface.polution_data_struct> apd = new java.util.ArrayList<functional_layer.pollution_data_interface.polution_data_struct>();
+        // getting values from the database
+        cc = cw.return_current_conditions();
+        fdd = fdf.get5DaysstoredData();
+        apd = pd.return_stored_pop_data();
+        System.out.println("Timestamps (Locations):");
+        int i = 1;
+        for (location_save_interface.Locations location : locations) {
+            System.out.println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                    + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                    + location.longitude);
+            i++;
+        }
+        i = 1;
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("Timestamps (Weather Data):");
+        for (functional_layer.current_weather_interface.Current_Conditions c : cc) {
+            System.out.println(i + ". Date: " + c.date + "-" + c.month + "-" + c.year);
+            i++;
+        }
+        System.out.println("------------------------------------------------------------------");
+        i = 1;
+        System.out.println("Timestamps (5 Days Forecast):");
+
+        for (functional_layer.five_days_forcast_interface.five_days_data f : fdd) {
+            System.out.println(i + ". Date: " + f.date + "-" + f.month + "-" + f.year);
+            i++;
+        }
+        System.out.println("------------------------------------------------------------------");
+        i = 1;
+        System.out.println("Timestamps (Pollution Data):");
+        for (functional_layer.pollution_data_interface.polution_data_struct a : apd) {
+            System.out.println(i + ". " + a.dt);
+            i++;
+        }
+        System.out.println("Press any key to continue.");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        run();
+    }
+
     public void generate_notification_air_quality() {
         Location_Interfaces lq = new functional_layer.source.locations_query();
         java.util.List<location_save_interface.Locations> locations = lq.displayLocs();

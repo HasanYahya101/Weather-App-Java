@@ -308,6 +308,11 @@ public class five_days_forcast implements five_days_forcast_interface {
         return fdd;
     }
 
+    public List<five_days_data> get5DaysstoredData() {
+        five_days_save fdss = new five_days_save();
+        return fdss.read_Five_Days();
+    }
+
     // main function to test functionality
     public static void main(String[] args) {
         five_days_forcast fdf = new five_days_forcast();

@@ -1,8 +1,10 @@
 package functional_layer;
 
+import java.util.List;
+
 public interface pollution_data_interface {
 
-    class polution_data_struct {
+    public class polution_data_struct {
         public String date;
         public String month;
         public String year;
@@ -22,6 +24,8 @@ public interface pollution_data_interface {
         // dt
         public String dt;
     }
+
+    public abstract List<polution_data_struct> return_stored_pop_data();
 
     public abstract polution_data_struct getPollutionData(String longi, String lati);
 

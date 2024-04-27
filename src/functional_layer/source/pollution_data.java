@@ -187,6 +187,11 @@ public class pollution_data implements pollution_data_interface {
         return null;
     }
 
+    public List<polution_data_struct> return_stored_pop_data() {
+        pollution_data_save save_data = new pollution_data_save();
+        return save_data.get_all_data();
+    }
+
     // main for testing only
     public static void main(String[] args) {
         pollution_data pd = new pollution_data();
