@@ -1588,6 +1588,161 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 </details>
 
+### Location (Geo API):
+
+<details>
+
+
+<summary>Click me</summary>
+
+```json
+{
+    "type":"FeatureCollection",
+    "features":[
+        {
+            "type":"Feature",
+            "properties":{
+                "datasource":{
+                    "sourcename":"openstreetmap",
+                    "attribution":"Â© OpenStreetMap contributors",
+                    "license":"Open Database License",
+                    "url":"https://www.openstreetmap.org/copyright"
+                },
+                "country":"Pakistan",
+                "country_code":"pk",
+                "state":"Sindh",
+                "city":"Karachi Division",
+                "lon":67.0207055,
+                "lat":24.8546842,
+                "state_code":"SD",
+                "result_type":"city",
+                "formatted":"Karachi Division, SD, Pakistan",
+                "address_line1":"Karachi Division",
+                "address_line2":"SD, Pakistan",
+                "category":"administrative",
+                "timezone":{
+                    "name":"Asia/Karachi",
+                    "offset_STD":"+05:00",
+                    "offset_STD_seconds":18000,
+                    "offset_DST":"+05:00",
+                    "offset_DST_seconds":18000,
+                    "abbreviation_STD":"PKT",
+                    "abbreviation_DST":"PKT"
+                },
+                "plus_code":"7JP9V23C+V7",
+                "rank":{
+                    "importance":0.70001,
+                    "popularity":3.978057715386993,
+                    "confidence":1,
+                    "confidence_city_level":1,
+                    "match_type":"full_match"
+                },
+                "place_id":"513b56293d53c15040596e686f95ccda3840f00101f901b4c95c0000000000c00208"
+            },
+            "geometry":{
+                "type":"Point",
+                "coordinates":[
+                    67.0207055,
+                    24.8546842
+                ]
+            },
+            "bbox":[
+                66.2862312,
+                24.4273517,
+                67.5827753,
+                25.676796
+            ]
+        }
+    ],
+    "query":{
+        "text":"Karachi, Pakistan",
+        "parsed":{
+            "city":"karachi",
+            "country":"pakistan",
+            "expected_type":"city"
+        }
+    }
+}
+```
+
+</details>
+
+### Location (OpenWeatherAPI):
+
+<details>
+
+
+<summary>Click me</summary>
+
+```json
+{
+    "type":"FeatureCollection",
+    "features":[
+        {
+            "type":"Feature",
+            "properties":{
+                "datasource":{
+                    "sourcename":"openstreetmap",
+                    "attribution":"Â© OpenStreetMap contributors",
+                    "license":"Open Database License",
+                    "url":"https://www.openstreetmap.org/copyright"
+                },
+                "name":"Tashkurgan",
+                "country":"China",
+                "country_code":"cn",
+                "region":"Kachgar",
+                "state":"Xinjiang",
+                "county":"Taxkorgan Tajik Autonomous County",
+                "city":"Tashqorghan Township",
+                "town":"Tashkurgan",
+                "lon":75.3583629,
+                "lat":37.5889938,
+                "distance":4558.894363411376,
+                "result_type":"suburb",
+                "formatted":"Tashkurgan, Tashqorghan Township, Taxkorgan Tajik Autonomous County, China",
+                "address_line1":"Tashkurgan",
+                "address_line2":"Tashqorghan Township, Taxkorgan Tajik Autonomous County, China",
+                "category":"populated_place",
+                "timezone":{
+                    "name":"Asia/Shanghai",
+                    "offset_STD":"+08:00",
+                    "offset_STD_seconds":28800,
+                    "offset_DST":"+08:00",
+                    "offset_DST_seconds":28800,
+                    "abbreviation_STD":"CST",
+                    "abbreviation_DST":"CST"
+                },
+                "plus_code":"8J9QH9Q5+H8",
+                "rank":{
+                    "importance":0.19324803174625985,
+                    "popularity":0.4826258357977161
+                },
+                "place_id":"5162e6f16aefd6524059fc451a2664cb4240f00103f901e6bf994102000000c0020592030a546173686b757267616e"
+            },
+            "geometry":{
+                "type":"Point",
+                "coordinates":[
+                    75.3583629,
+                    37.5889938
+                ]
+            },
+            "bbox":[
+                75.3183629,
+                37.5489938,
+                75.3983629,
+                37.6289938
+            ]
+        }
+    ],
+    "query":{
+        "lat":37.5497,
+        "lon":75.3436,
+        "plus_code":"8J9QG8XV+VC"
+    }
+}
+```
+</details>
+
 ## Note:
 
 The Project is completly implemented in `VS Code` using Java Projects.

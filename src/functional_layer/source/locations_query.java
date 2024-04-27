@@ -89,7 +89,8 @@ public class locations_query implements Location_Interfaces {
                 in.close();
 
                 // print the result in string
-                // System.out.println(response.toString());
+                System.out.println(response.toString());
+                System.exit(0);
 
                 // extract country, country code, city, latitude and longitude from the response
                 String country_code = response.toString().split("country_code\":\"")[1].split("\",\"")[0];
@@ -178,6 +179,10 @@ public class locations_query implements Location_Interfaces {
                 }
                 in.close();
 
+                // print response in string
+                System.out.println(response.toString());
+                System.exit(0);
+
                 String country_code = response.toString().split("country_code\":\"")[1].split("\",\"")[0];
                 String latitude = response.toString().split("lat\":")[1].split(",\"")[0];
                 String longitude = response.toString().split("lon\":")[1].split(",\"")[0];
@@ -209,8 +214,8 @@ public class locations_query implements Location_Interfaces {
     // main method for testing only
     public static void main(String[] args) {
         locations_query lq = new locations_query();
-        // lq.addLocation_Coordinates("31.5497", "74.3436");
-        lq.addLocation_Names("Islamabad", "Pakistan");
+        lq.addLocation_Coordinates("37.5497", "75.3436");
+        // lq.addLocation_Names("Karachi", "Pakistan");
         // lq.displayLocs();
     }
 }
