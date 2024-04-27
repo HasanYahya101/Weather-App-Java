@@ -18,28 +18,6 @@ import functional_layer.five_days_forcast_interface;
 import database_layer.textfile_module.source.five_days_save;
 
 public class five_days_forcast implements five_days_forcast_interface {
-    /*
-     * private static String extractValue(String text, String start, String end) {
-     * int startIndex = text.indexOf(start) + start.length();
-     * int endIndex = text.indexOf(end, startIndex);
-     * return text.substring(startIndex, endIndex);
-     * }
-     */
-
-    private static String extractValue(String text, String start, String end) {
-        int startIndex = text.indexOf(start);
-        if (startIndex == -1) {
-            return ""; // Start delimiter not found
-        }
-        startIndex += start.length();
-
-        int endIndex = text.indexOf(end, startIndex);
-        if (endIndex == -1) {
-            return ""; // End delimiter not found
-        }
-
-        return text.substring(startIndex, endIndex);
-    }
 
     @Override
     public five_days_data get5DaysForcast(String longi, String lati) {
@@ -109,6 +87,8 @@ public class five_days_forcast implements five_days_forcast_interface {
             fdd.date = date;
             fdd.month = month;
             fdd.year = year;
+
+            fdd.list = new java.util.ArrayList<five_days_struct>();
 
             // Print to test response
             // System.out.println(response.toString());
