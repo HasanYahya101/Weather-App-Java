@@ -4,11 +4,14 @@ import java.util.Scanner;
 import functional_layer.*;
 import functional_layer.source.*;
 import database_layer.textfile_module.*;
-import functional_layer.current_weather_interface;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import functional_layer.source.five_days_forcast;
+import functional_layer.five_days_forcast_interface;
+import functional_layer.five_days_forcast_interface.*;
 
 public class terminal {
     private static LocalDateTime unixTimestampToLocalDateTime(long unixTimestamp) {
@@ -52,7 +55,7 @@ public class terminal {
             } else if (choice == 5) {
                 show_sunset_sunrise();
             } else if (choice == 6) {
-                System.out.println("Show weather forecast for 5 days.");
+                show_weather_5days();
             } else if (choice == 7) {
                 System.out.println("Display timestamps for weather record.");
             } else if (choice == 8) {
@@ -71,6 +74,79 @@ public class terminal {
             }
         }
         scanner.close();
+    }
+
+    public void show_weather_5days() {
+        functional_layer.five_days_forcast_interface fdf = null;
+        fdf = new functional_layer.source.five_days_forcast();
+
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found. Please add a location first.");
+            System.out.println("Press any key to continue.");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            run();
+        } else {
+            System.out.println("Locations:");
+            int i = 1;
+            for (location_save_interface.Locations location : locations) {
+                System.out
+                        .println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                                + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                                + location.longitude);
+                i++;
+            }
+            System.out.println("Enter the index of Location: ");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            while (index > locations.size() || index < 1) {
+                System.out.println("Invalid index. Please enter a valid index.");
+                index = scanner.nextInt();
+                scanner.nextLine();
+            }
+            String latitude = locations.get(index - 1).latitude;
+            String longitude = locations.get(index - 1).longitude;
+            functional_layer.five_days_forcast_interface.five_days_data fdd = fdf.get5DaysForcast(latitude, longitude);
+            System.out.println("Data:");
+            System.out.println("Latitude: " + fdd.lat);
+            System.out.println("Longitude: " + fdd.lon);
+            System.out.println("Date: " + fdd.date + "-" + fdd.month + "-" + fdd.year);
+            System.out.println("List:");
+            for (functional_layer.five_days_forcast_interface.five_days_struct fds : fdd.list) {
+                System.out.println("-----------------------------------------------------");
+                System.out.println("Date Time: " + fds.dt);
+                System.out.println("Temperature: " + fds.temp);
+                System.out.println("Feels Like: " + fds.feels_like);
+                System.out.println("Minimum Temperature: " + fds.temp_min);
+                System.out.println("Maximum Temperature: " + fds.temp_max);
+                System.out.println("Pressure: " + fds.pressure);
+                System.out.println("Humidity: " + fds.humidity);
+                System.out.println("Weather: " + fds.weather);
+                System.out.println("Icon: " + fds.icon);
+                System.out.println("Visibility: " + fds.visibility);
+                System.out.println("Wind Speed: " + fds.wind_speed
+                        + " (Speed of the wind at the moment of calculation. Unit Default: meter/sec)");
+                System.out.println("Wind Degree: " + fds.wind_deg
+                        + " (Wind direction, degrees (meteorological))");
+                System.out.println("Gust: " + fds.gust + " (Wind gust. Unit Default: meter/sec)");
+                System.out.println("Clouds: " + fds.clouds_all + " (Cloudiness, %)");
+                System.out.println("Sunrise: " + fds.sunrise + " (Sunrise time)");
+                System.out.println("Sunset: " + fds.sunset + " (Sunset time)");
+                System.out.println("Date Time Text: " + fds.dt_text);
+                System.out.println("");
+                System.out.println("-----------------------------------------------------");
+
+            }
+            System.out.println("Press any key to continue.");
+            // create a system command
+            scanner.nextLine();
+            run();
+
+        }
+
     }
 
     public void show_sunset_sunrise() {
