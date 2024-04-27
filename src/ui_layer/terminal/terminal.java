@@ -89,37 +89,56 @@ public class terminal {
         apd = pd.return_stored_pop_data();
         System.out.println("Timestamps (Locations):");
         int i = 1;
-        for (location_save_interface.Locations location : locations) {
-            System.out.println(i + ". " + "Date: " + location.Day + "-" + location.Month + "-" + location.Year
-                    + ", Time: " + location.Hour + ":" + location.Minutes + ", City: " + location.city + ", Country: "
-                    + location.country);
-            i++;
+        if (locations != null && locations.size() > 0) {
+            for (location_save_interface.Locations location : locations) {
+                System.out.println(i + ". " + "Date: " + location.Day + "-" + location.Month + "-" + location.Year
+                        + ", Time: " + location.Hour + ":" + location.Minutes + ", City: " + location.city
+                        + ", Country: "
+                        + location.country);
+                i++;
+            }
+        } else {
+            System.out.println("No locations found.");
         }
         i = 1;
         System.out.println("------------------------------------------------------------------");
         System.out.println("Timestamps (Weather Data):");
-        for (functional_layer.current_weather_interface.Current_Conditions c : cc) {
-            System.out.println(i + ". Date: " + c.date + "-" + c.month + "-" + c.year + ", Time: " + c.hour + ":"
-                    + c.minutes + ", Latitude: " + c.lat + ", Longitude: " + c.lon);
-            i++;
+        if (cc != null && cc.size() > 0) {
+
+            for (functional_layer.current_weather_interface.Current_Conditions c : cc) {
+                System.out.println(i + ". Date: " + c.date + "-" + c.month + "-" + c.year + ", Time: " + c.hour + ":"
+                        + c.minutes + ", Latitude: " + c.lat + ", Longitude: " + c.lon);
+                i++;
+            }
+        } else {
+            System.out.println("No weather data found.");
         }
         System.out.println("------------------------------------------------------------------");
         i = 1;
         System.out.println("Timestamps (5 Days Forecast):");
+        if (fdd != null && fdd.size() > 0) {
 
-        for (functional_layer.five_days_forcast_interface.five_days_data f : fdd) {
-            System.out.println(i + ". Date: " + f.date + "-" + f.month + "-" + f.year + ", Time: " + f.hour + ":"
-                    + f.minutes + ", Latitude: " + f.lat + ", Longitude: " + f.lon);
-            i++;
+            for (functional_layer.five_days_forcast_interface.five_days_data f : fdd) {
+                System.out.println(i + ". Date: " + f.date + "-" + f.month + "-" + f.year + ", Time: " + f.hour + ":"
+                        + f.minutes + ", Latitude: " + f.lat + ", Longitude: " + f.lon);
+                i++;
+            }
+        } else {
+            System.out.println("No 5 days forecast data found.");
         }
         System.out.println("------------------------------------------------------------------");
         i = 1;
         System.out.println("Timestamps (Pollution Data):");
-        for (functional_layer.pollution_data_interface.polution_data_struct a : apd) {
-            System.out.println(i + ". Date: " + a.date + "-" + a.month + "-" + a.year + ", Time: " + a.hour + ":"
-                    + a.minutes + ", Latitude: " + a.lat + ", Longitude: " + a.lon);
-            i++;
+        if (apd != null && apd.size() > 0) {
+            for (functional_layer.pollution_data_interface.polution_data_struct a : apd) {
+                System.out.println(i + ". Date: " + a.date + "-" + a.month + "-" + a.year + ", Time: " + a.hour + ":"
+                        + a.minutes + ", Latitude: " + a.lat + ", Longitude: " + a.lon);
+                i++;
+            }
+        } else {
+            System.out.println("No pollution data found.");
         }
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Press any key to continue.");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
@@ -162,7 +181,13 @@ public class terminal {
             System.out.println("Data:");
             System.out.println("Latitude: " + apd.lat);
             System.out.println("Longitude: " + apd.lon);
-            System.out.println("Date Time: " + apd.dt);
+            // convert dt unix to local date time
+            long dt = Long.parseLong(apd.dt);
+            LocalDateTime dateTime = unixTimestampToLocalDateTime(dt);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = dateTime.format(formatter);
+            System.out.println("Date Time: " + formattedDateTime);
+            // System.out.println("Date Time: " + apd.dt);
             System.out.println("AQI: " + apd.aqi);
             System.out.println("CO: " + apd.co);
             System.out.println("NO: " + apd.no);
@@ -300,7 +325,13 @@ public class terminal {
             System.out.println("Data:");
             System.out.println("Latitude: " + apd.lat);
             System.out.println("Longitude: " + apd.lon);
-            System.out.println("Date Time: " + apd.dt);
+            // convert dt unix to local date time
+            long dt = Long.parseLong(apd.dt);
+            LocalDateTime dateTime = unixTimestampToLocalDateTime(dt);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = dateTime.format(formatter);
+            System.out.println("Date Time: " + formattedDateTime);
+            // System.out.println("Date Time: " + apd.dt);
             System.out.println("AQI: " + apd.aqi);
             System.out.println("CO: " + apd.co);
             System.out.println("NO: " + apd.no);
@@ -353,7 +384,13 @@ public class terminal {
             System.out.println("Data:");
             System.out.println("Latitude: " + apd.lat);
             System.out.println("Longitude: " + apd.lon);
-            System.out.println("Date Time: " + apd.dt);
+            // convert dt unix to local date time
+            long dt = Long.parseLong(apd.dt);
+            LocalDateTime dateTime = unixTimestampToLocalDateTime(dt);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = dateTime.format(formatter);
+            System.out.println("Date Time: " + formattedDateTime);
+            // System.out.println("Date Time: " + apd.dt);
             System.out.println("AQI: " + apd.aqi);
             System.out.println("CO: " + apd.co);
             System.out.println("NO: " + apd.no);
@@ -434,6 +471,7 @@ public class terminal {
                 System.out.println("Weather Conditions are normal.");
             }
             // create a system command
+            System.out.println("Press any key to continue.");
             scanner.nextLine();
             run();
         }
