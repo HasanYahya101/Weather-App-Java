@@ -51,8 +51,24 @@ public class five_days_forcast implements five_days_forcast_interface {
 
         List<five_days_data> fdd_temp = fdss.read_Five_Days();
 
+        String given_longi = longi;
+        String given_lati = lati;
+        String given_logi_before_decimal = given_longi.substring(0, given_longi.indexOf("."));
+        String given_lati_before_decimal = given_lati.substring(0, given_lati.indexOf("."));
+        String given_lati_2_digits_after_decimal = given_lati.substring(given_lati.indexOf(".") + 1);
+        String given_longi_2_digits_after_decimal = given_longi.substring(given_longi.indexOf(".") + 1);
+
         for (int i = 0; i < fdd_temp.size(); i++) {
-            if (fdd_temp.get(i).lat.equals(lati) && fdd_temp.get(i).lon.equals(longi)) {
+            String cache_lati = fdd_temp.get(i).lat;
+            String cache_longi = fdd_temp.get(i).lon;
+            String cache_lati_before_decimal = cache_lati.substring(0, cache_lati.indexOf("."));
+            String cache_longi_before_decimal = cache_longi.substring(0, cache_longi.indexOf("."));
+            String cache_lati_2_digits_after_decimal = cache_lati.substring(cache_lati.indexOf(".") + 1);
+            String cache_longi_2_digits_after_decimal = cache_longi.substring(cache_longi.indexOf(".") + 1);
+            if ((cache_lati_before_decimal.equals(given_lati_before_decimal))
+                    && (cache_longi_before_decimal.equals(given_logi_before_decimal))
+                    && (cache_lati_2_digits_after_decimal.equals(given_lati_2_digits_after_decimal))
+                    && (cache_longi_2_digits_after_decimal.equals(given_longi_2_digits_after_decimal))) {
                 fdd = fdd_temp.get(i);
                 return fdd;
                 // no need to call the API again as today data is still in cache
