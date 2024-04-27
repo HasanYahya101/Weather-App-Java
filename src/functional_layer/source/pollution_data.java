@@ -71,7 +71,11 @@ public class pollution_data implements pollution_data_interface {
             JSONArray list = (JSONArray) json.get("list");
             JSONObject main = (JSONObject) list.get(0);
             JSONObject components = (JSONObject) main.get("components");
-            aqi = components.get("aqi").toString();
+            if (components.get("aqi") == null) {
+                aqi = "null";
+            } else {
+                aqi = components.get("aqi").toString();
+            }
             // gases
             String co;
             if (components.get("co") == null) {

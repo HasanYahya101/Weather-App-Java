@@ -57,11 +57,11 @@ public class terminal {
             } else if (choice == 8) {
                 generate_noti_poor_weather();
             } else if (choice == 9) {
-                System.out.println("Show Air Pollution data.");
+                show_air_pollution();
             } else if (choice == 10) {
-                System.out.println("Generate Notification for poor air quality.");
+                generate_notification_air_quality();
             } else if (choice == 11) {
-                System.out.println("Show pollution Gases Information.");
+                show_gases_info();
             } else if (choice == 12) {
                 display_locations();
             } else if (choice == 13) {
@@ -70,6 +70,250 @@ public class terminal {
             }
         }
         scanner.close();
+    }
+
+    public void generate_notification_air_quality() {
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found. Please add a location first.");
+            System.out.println("Press any key to continue.");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            run();
+        } else {
+            System.out.println("Locations:");
+            int i = 1;
+            for (location_save_interface.Locations location : locations) {
+                System.out
+                        .println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                                + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                                + location.longitude);
+                i++;
+            }
+            System.out.println("Enter the index of Location: ");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            while (index > locations.size() || index < 1) {
+                System.out.println("Invalid index. Please enter a valid index.");
+                index = scanner.nextInt();
+                scanner.nextLine();
+            }
+            String latitude = locations.get(index - 1).latitude;
+            String longitude = locations.get(index - 1).longitude;
+            functional_layer.pollution_data_interface pollution_data = new functional_layer.source.pollution_data();
+            functional_layer.pollution_data_interface.polution_data_struct apd = pollution_data.getPollutionData(
+                    latitude, longitude);
+            System.out.println("Data:");
+            System.out.println("Latitude: " + apd.lat);
+            System.out.println("Longitude: " + apd.lon);
+            System.out.println("Date Time: " + apd.dt);
+            System.out.println("AQI: " + apd.aqi);
+            System.out.println("CO: " + apd.co);
+            System.out.println("NO: " + apd.no);
+            System.out.println("NO2: " + apd.no2);
+            System.out.println("O3: " + apd.o3);
+            System.out.println("SO2: " + apd.so2);
+            System.out.println("PM2.5: " + apd.pm2_5);
+            System.out.println("PM10: " + apd.pm10);
+            System.out.println("NH3: " + apd.nh3);
+            System.out.println("Press any key to continue.");
+            boolean flag = false;
+            if (apd.aqi.equals("null") != true) {
+                int aqi = Integer.parseInt(apd.aqi);
+                if (aqi > 300) {
+                    System.out.println("Hazardous air quality. Notification generated.");
+                    flag = true;
+                } else if (aqi > 200) {
+                    System.out.println("Very unhealthy air quality. Notification generated.");
+                    flag = true;
+                } else if (aqi > 150) {
+                    System.out.println("Unhealthy air quality. Notification generated.");
+                    flag = true;
+                } else if (aqi > 100) {
+                    System.out.println("Unhealthy for sensitive groups. Notification generated.");
+                    flag = true;
+                } else if (aqi > 50) {
+                    System.out.println("Moderate air quality. Notification generated.");
+                    flag = true;
+                } else {
+                    System.out.println("Good air quality. Notification generated.");
+                    flag = true;
+                }
+            } else {
+                System.out.println("No AQI data found.");
+            }
+            if (apd.co.equals("null") != true) {
+                float co = Float.parseFloat(apd.co);
+                if (co >= 500) {
+                    System.out.println("Very high CO levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.no.equals("null") != true) {
+                float no = Float.parseFloat(apd.no);
+                if (no >= 0.2) {
+                    System.out.println("Very high NO levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.no2.equals("null") != true) {
+                float no2 = Float.parseFloat(apd.no2);
+                if (no2 >= 0.09) {
+                    System.out.println("Very high NO2 levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.o3.equals("null") != true) {
+                float o3 = Float.parseFloat(apd.o3);
+                if (o3 >= 130) {
+                    System.out.println("Very high O3 levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.so2.equals("null") != true) {
+                float so2 = Float.parseFloat(apd.so2);
+                if (so2 > 0.3) {
+                    System.out.println("Very high SO2 levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.pm2_5.equals("null") != true) {
+                float pm2_5 = Float.parseFloat(apd.pm2_5);
+                if (pm2_5 >= 1.2) {
+                    System.out.println("Very high PM2.5 levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.pm10.equals("null") != true) {
+                float pm10 = Float.parseFloat(apd.pm10);
+                if (pm10 >= 1.5) {
+                    System.out.println("Very high PM10 levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (apd.nh3.equals("null") != true) {
+                float nh3 = Float.parseFloat(apd.nh3);
+                if (nh3 >= 10) {
+                    System.out.println("Very high NH3 levels. Notification generated.");
+                    flag = true;
+                }
+            }
+            if (flag == false) {
+                System.out.println("No poor air quality detected.");
+            }
+            // create a system command
+            System.out.println("Press any key to continue.");
+            scanner.nextLine();
+            run();
+        }
+    }
+
+    public void show_gases_info() {
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found. Please add a location first.");
+            System.out.println("Press any key to continue.");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            run();
+        } else {
+            System.out.println("Locations:");
+            int i = 1;
+            for (location_save_interface.Locations location : locations) {
+                System.out
+                        .println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                                + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                                + location.longitude);
+                i++;
+            }
+            System.out.println("Enter the index of Location: ");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            while (index > locations.size() || index < 1) {
+                System.out.println("Invalid index. Please enter a valid index.");
+                index = scanner.nextInt();
+                scanner.nextLine();
+            }
+            String latitude = locations.get(index - 1).latitude;
+            String longitude = locations.get(index - 1).longitude;
+            functional_layer.pollution_data_interface pollution_data = new functional_layer.source.pollution_data();
+            functional_layer.pollution_data_interface.polution_data_struct apd = pollution_data.getPollutionData(
+                    latitude, longitude);
+            System.out.println("Data:");
+            System.out.println("Latitude: " + apd.lat);
+            System.out.println("Longitude: " + apd.lon);
+            System.out.println("Date Time: " + apd.dt);
+            System.out.println("AQI: " + apd.aqi);
+            System.out.println("CO: " + apd.co);
+            System.out.println("NO: " + apd.no);
+            System.out.println("NO2: " + apd.no2);
+            System.out.println("O3: " + apd.o3);
+            System.out.println("SO2: " + apd.so2);
+            System.out.println("PM2.5: " + apd.pm2_5);
+            System.out.println("PM10: " + apd.pm10);
+            System.out.println("NH3: " + apd.nh3);
+            System.out.println("Press any key to continue.");
+            // create a system command
+            scanner.nextLine();
+            run();
+        }
+    }
+
+    public void show_air_pollution() {
+        Location_Interfaces lq = new functional_layer.source.locations_query();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        if (locations.size() == 0) {
+            System.out.println("No locations found. Please add a location first.");
+            System.out.println("Press any key to continue.");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            run();
+        } else {
+            System.out.println("Locations:");
+            int i = 1;
+            for (location_save_interface.Locations location : locations) {
+                System.out
+                        .println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
+                                + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
+                                + location.longitude);
+                i++;
+            }
+            System.out.println("Enter the index of Location: ");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            while (index > locations.size() || index < 1) {
+                System.out.println("Invalid index. Please enter a valid index.");
+                index = scanner.nextInt();
+                scanner.nextLine();
+            }
+            String latitude = locations.get(index - 1).latitude;
+            String longitude = locations.get(index - 1).longitude;
+            functional_layer.pollution_data_interface pollution_data = new functional_layer.source.pollution_data();
+            functional_layer.pollution_data_interface.polution_data_struct apd = pollution_data.getPollutionData(
+                    latitude, longitude);
+            System.out.println("Data:");
+            System.out.println("Latitude: " + apd.lat);
+            System.out.println("Longitude: " + apd.lon);
+            System.out.println("Date Time: " + apd.dt);
+            System.out.println("AQI: " + apd.aqi);
+            System.out.println("CO: " + apd.co);
+            System.out.println("NO: " + apd.no);
+            System.out.println("NO2: " + apd.no2);
+            System.out.println("O3: " + apd.o3);
+            System.out.println("SO2: " + apd.so2);
+            System.out.println("PM2.5: " + apd.pm2_5);
+            System.out.println("PM10: " + apd.pm10);
+            System.out.println("NH3: " + apd.nh3);
+            System.out.println("Press any key to continue.");
+            // create a system command
+            scanner.nextLine();
+            run();
+        }
     }
 
     public void generate_noti_poor_weather() {
