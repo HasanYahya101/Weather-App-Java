@@ -90,16 +90,17 @@ public class terminal {
         System.out.println("Timestamps (Locations):");
         int i = 1;
         for (location_save_interface.Locations location : locations) {
-            System.out.println(i + ". City: " + location.city + ", Country: " + location.country + ", Country Code: "
-                    + location.country_code + ", Latitude: " + location.latitude + ", Longitude: "
-                    + location.longitude);
+            System.out.println(i + ". " + "Date: " + location.Day + "-" + location.Month + "-" + location.Year
+                    + ", Time: " + location.Hour + ":" + location.Minutes + ", City: " + location.city + ", Country: "
+                    + location.country);
             i++;
         }
         i = 1;
         System.out.println("------------------------------------------------------------------");
         System.out.println("Timestamps (Weather Data):");
         for (functional_layer.current_weather_interface.Current_Conditions c : cc) {
-            System.out.println(i + ". Date: " + c.date + "-" + c.month + "-" + c.year);
+            System.out.println(i + ". Date: " + c.date + "-" + c.month + "-" + c.year + ", Time: " + c.hour + ":"
+                    + c.minutes + ", Latitude: " + c.lat + ", Longitude: " + c.lon);
             i++;
         }
         System.out.println("------------------------------------------------------------------");
@@ -107,14 +108,16 @@ public class terminal {
         System.out.println("Timestamps (5 Days Forecast):");
 
         for (functional_layer.five_days_forcast_interface.five_days_data f : fdd) {
-            System.out.println(i + ". Date: " + f.date + "-" + f.month + "-" + f.year);
+            System.out.println(i + ". Date: " + f.date + "-" + f.month + "-" + f.year + ", Time: " + f.hour + ":"
+                    + f.minutes + ", Latitude: " + f.lat + ", Longitude: " + f.lon);
             i++;
         }
         System.out.println("------------------------------------------------------------------");
         i = 1;
         System.out.println("Timestamps (Pollution Data):");
         for (functional_layer.pollution_data_interface.polution_data_struct a : apd) {
-            System.out.println(i + ". " + a.dt);
+            System.out.println(i + ". Date: " + a.date + "-" + a.month + "-" + a.year + ", Time: " + a.hour + ":"
+                    + a.minutes + ", Latitude: " + a.lat + ", Longitude: " + a.lon);
             i++;
         }
         System.out.println("Press any key to continue.");
