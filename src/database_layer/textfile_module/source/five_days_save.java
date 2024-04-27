@@ -5,14 +5,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 
 import database_layer.textfile_module.five_days_interface_save;
 import functional_layer.five_days_forcast_interface.five_days_data;
 import functional_layer.five_days_forcast_interface.five_days_struct;
-import functional_layer.five_days_forcast_interface;
 
 import java.util.List;
 

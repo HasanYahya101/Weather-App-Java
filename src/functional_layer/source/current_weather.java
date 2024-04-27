@@ -1,14 +1,11 @@
 package functional_layer.source;
 
 import functional_layer.current_weather_interface;
-import database_layer.textfile_module.source.current_conditions;
-import config.API_Key;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

@@ -2,16 +2,12 @@ package ui_layer.terminal;
 
 import java.util.Scanner;
 import functional_layer.*;
-import functional_layer.source.*;
 import database_layer.textfile_module.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import functional_layer.source.five_days_forcast;
-import functional_layer.five_days_forcast_interface;
-import functional_layer.five_days_forcast_interface.*;
 
 public class terminal {
     private static LocalDateTime unixTimestampToLocalDateTime(long unixTimestamp) {

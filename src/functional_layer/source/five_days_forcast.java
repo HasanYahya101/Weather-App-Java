@@ -5,14 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import functional_layer.*;
 import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 
-import functional_layer.current_weather_interface.Current_Conditions;
 import functional_layer.five_days_forcast_interface;
 
 import database_layer.textfile_module.source.five_days_save;

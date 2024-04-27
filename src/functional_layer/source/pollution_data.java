@@ -15,11 +15,6 @@ import functional_layer.pollution_data_interface;
 import database_layer.textfile_module.source.pollution_data_save;
 
 public class pollution_data implements pollution_data_interface {
-    private static String extractValue(String input, String start, String end) {
-        int startIndex = input.indexOf(start) + start.length();
-        int endIndex = input.indexOf(end, startIndex);
-        return input.substring(startIndex, endIndex);
-    }
 
     public polution_data_struct getPollutionData(String longi, String lati) {
         // save pollution data
