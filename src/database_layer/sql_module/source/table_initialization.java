@@ -18,6 +18,20 @@ public class table_initialization implements table_interface {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Create tables
                 Statement stmt = conn.createStatement();
+                // checf if all 4 tables already exist
+                boolean flag1;
+                boolean flag2;
+                boolean flag3;
+                boolean flag4;
+                flag1 = stmt
+                        .execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Current_Conditions';");
+                flag2 = stmt.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Locations';");
+                flag3 = stmt.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Pollution_Data';");
+                flag4 = stmt.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Forecast';");
+                if (flag1 && flag2 && flag3 && flag4) {
+                    // System.out.println("All tables already exist.");
+                    return;
+                }
                 // Create table Current_Conditions
                 String sql = "CREATE TABLE IF NOT EXISTS Current_Conditions (\n"
                         + "    id INTEGER NOT NULL,\n"
