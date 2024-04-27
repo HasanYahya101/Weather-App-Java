@@ -17,9 +17,9 @@ class Locations {
 
 public interface Location_Interfaces {
     // lati: latitude, longi: longitude which are parameters in API call.
-    public boolean addLocation_Coordinates(String lati, String longi);
+    public abstract boolean addLocation_Coordinates(String lati, String longi);
 
-    public boolean addLocation_Names(String city, String country);
+    public abstract boolean addLocation_Names(String city, String country);
 
-    public java.util.List<location_save_interface.Locations> displayLocs();
+    public abstract java.util.List<location_save_interface.Locations> displayLocs();
 }
