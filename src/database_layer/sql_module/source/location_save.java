@@ -28,13 +28,14 @@ public class location_save implements database_layer.sql_module.location_save_in
                 Statement stmt = conn.createStatement();
 
                 // Insert data into Locations
-                String sql = "INSERT INTO Locations (city, country, country_code, latitude, longitude, date, month, year, hour, minutes) VALUES ('"
+                String sql = "INSERT INTO Locations (city, country, country_code, lat, lon, date, month, year, hour, minutes) VALUES ('"
                         + city + "', '" + country + "', '" + country_code + "', '" + latitude + "', '" + longitude
                         + "', '"
                         + date + "', '" + month + "', '" + year + "', '" + hour + "', '" + minutes + "');";
                 stmt.execute(sql);
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             flag = false;
         }
 
@@ -64,8 +65,8 @@ public class location_save implements database_layer.sql_module.location_save_in
                     loc.city = rs.getString("city");
                     loc.country = rs.getString("country");
                     loc.country_code = rs.getString("country_code");
-                    loc.latitude = rs.getString("latitude");
-                    loc.longitude = rs.getString("longitude");
+                    loc.latitude = rs.getString("lat");
+                    loc.longitude = rs.getString("lon");
                     loc.Day = rs.getString("date");
                     loc.Month = rs.getString("month");
                     loc.Year = rs.getString("year");
@@ -79,5 +80,21 @@ public class location_save implements database_layer.sql_module.location_save_in
         }
 
         return return_data;
+    }
+
+    // main to test save location names
+    public static void main(String[] args) {
+        location_save loc = new location_save();
+        /*
+         * loc.saveLocation_Names("city", "country", "country_code", "latitude",
+         * "longitude", "date", "month", "year",
+         * "hour", "minutes");
+         */
+        // test get locations nd print data
+        List<Locations> locs = loc.getLocations();
+        for (Locations l : locs) {
+            System.out.println(l.city + " " + l.country + " " + l.country_code + " " + l.latitude + " " + l.longitude
+                    + " " + l.Day + " " + l.Month + " " + l.Year + " " + l.Hour + " " + l.Minutes);
+        }
     }
 }

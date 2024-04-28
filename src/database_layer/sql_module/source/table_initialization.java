@@ -5,6 +5,7 @@ import database_layer.sql_module.table_interface;
 // Sqlite driver imports
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -19,17 +20,17 @@ public class table_initialization implements table_interface {
                 // Create tables
                 Statement stmt = conn.createStatement();
                 // checf if all 4 tables already exist
-                boolean flag1;
-                boolean flag2;
-                boolean flag3;
-                boolean flag4;
-                flag1 = stmt
-                        .execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Current_Conditions';");
-                flag2 = stmt.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Locations';");
-                flag3 = stmt.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Pollution_Data';");
-                flag4 = stmt.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Forecast';");
-                if (flag1 && flag2 && flag3 && flag4) {
-                    // System.out.println("All tables already exist.");
+                ResultSet rs1 = stmt.executeQuery(
+                        "SELECT name FROM sqlite_master WHERE type='table' AND name='Current_Conditions';");
+                ResultSet rs2 = stmt
+                        .executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Locations';");
+                ResultSet rs3 = stmt
+                        .executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Pollution_Data';");
+                ResultSet rs4 = stmt
+                        .executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Forecast';");
+
+                if (rs1.next() && rs2.next() && rs3.next() && rs4.next()) {
+                    // All tables already exist.
                     return;
                 }
                 // Create table Current_Conditions

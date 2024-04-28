@@ -240,6 +240,7 @@ public class locations_query implements Location_Interfaces {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
                 return false;
             } finally {
                 if (http != null) {
@@ -270,6 +271,7 @@ public class locations_query implements Location_Interfaces {
                 encodedQuery = URLEncoder.encode(city + ", " + country, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
                 return false;
             }
 
@@ -279,6 +281,7 @@ public class locations_query implements Location_Interfaces {
                 url = new URL(apiUrl);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
                 return false;
             }
 
@@ -327,6 +330,7 @@ public class locations_query implements Location_Interfaces {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
                 return false;
             } finally {
                 if (http != null) {

@@ -780,7 +780,7 @@ public class terminal {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the database type (txt or sql): ");
         db_type = scanner.nextLine();
-        scanner.close();
+        // scanner.close();
         terminal.run(db_type);
     }
 }
