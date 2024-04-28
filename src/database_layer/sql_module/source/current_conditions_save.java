@@ -164,12 +164,13 @@ public class current_conditions_save implements database_layer.sql_module.curren
             } catch (SQLException ex) {
             }
         }
+
     }
 
     // main for testing only
     public static void main(String[] args) {
         current_conditions_save ccs = new current_conditions_save();
-        Current_Conditions cc = new Current_Conditions();
+        // Current_Conditions cc = new Current_Conditions();
 
         ccs.remove_prev_cache();
 
