@@ -14,7 +14,7 @@ public class terminal {
         return LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp), ZoneId.of("UTC"));
     }
 
-    public void run() {
+    public void run(String db_type) {
         System.out.print("\033[H\033[2J"); // clear the terminal
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -38,32 +38,32 @@ public class terminal {
         if (choice > 13 || choice < 1) {
             System.out.println("Invalid choice. Please enter a valid choice.");
             System.out.println("");
-            run();
+            run(db_type);
         } else {
             if (choice == 1) {
-                addLocationByCityAndCountryName();
+                addLocationByCityAndCountryName(db_type);
             } else if (choice == 2) {
-                addLocationbyCoordinates();
+                addLocationbyCoordinates(db_type);
             } else if (choice == 3) {
-                show_curr_conditions();
+                show_curr_conditions(db_type);
             } else if (choice == 4) {
-                show_feels_like();
+                show_feels_like(db_type);
             } else if (choice == 5) {
-                show_sunset_sunrise();
+                show_sunset_sunrise(db_type);
             } else if (choice == 6) {
-                show_weather_5days();
+                show_weather_5days(db_type);
             } else if (choice == 7) {
-                display_timestamps();
+                display_timestamps(db_type);
             } else if (choice == 8) {
-                generate_noti_poor_weather();
+                generate_noti_poor_weather(db_type);
             } else if (choice == 9) {
-                show_air_pollution();
+                show_air_pollution(db_type);
             } else if (choice == 10) {
-                generate_notification_air_quality();
+                generate_notification_air_quality(db_type);
             } else if (choice == 11) {
-                show_gases_info();
+                show_gases_info(db_type);
             } else if (choice == 12) {
-                display_locations();
+                display_locations(db_type);
             } else if (choice == 13) {
                 System.out.println("Exiting the program.");
                 System.exit(0);
@@ -72,21 +72,21 @@ public class terminal {
         scanner.close();
     }
 
-    public void display_timestamps() {
+    public void display_timestamps(String db_type) {
         // creating objects of all classes
         functional_layer.Location_Interfaces lq = new functional_layer.source.locations_query();
         functional_layer.current_weather_interface cw = new functional_layer.source.current_weather();
         functional_layer.five_days_forcast_interface fdf = new functional_layer.source.five_days_forcast();
         functional_layer.pollution_data_interface pd = new functional_layer.source.pollution_data();
         // creating data classes
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         java.util.List<functional_layer.current_weather_interface.Current_Conditions> cc = new java.util.ArrayList<functional_layer.current_weather_interface.Current_Conditions>();
         java.util.List<functional_layer.five_days_forcast_interface.five_days_data> fdd = new java.util.ArrayList<functional_layer.five_days_forcast_interface.five_days_data>();
         java.util.List<functional_layer.pollution_data_interface.polution_data_struct> apd = new java.util.ArrayList<functional_layer.pollution_data_interface.polution_data_struct>();
         // getting values from the database
-        cc = cw.return_current_conditions();
-        fdd = fdf.get5DaysstoredData();
-        apd = pd.return_stored_pop_data();
+        cc = cw.return_current_conditions(db_type);
+        fdd = fdf.get5DaysstoredData(db_type);
+        apd = pd.return_stored_pop_data(db_type);
         System.out.println("Timestamps (Locations):");
         int i = 1;
         if (locations != null && locations.size() > 0) {
@@ -142,18 +142,18 @@ public class terminal {
         System.out.println("Press any key to continue.");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
-        run();
+        run(db_type);
     }
 
-    public void generate_notification_air_quality() {
+    public void generate_notification_air_quality(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -177,7 +177,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             functional_layer.pollution_data_interface pollution_data = new functional_layer.source.pollution_data();
             functional_layer.pollution_data_interface.polution_data_struct apd = pollution_data.getPollutionData(
-                    latitude, longitude);
+                    latitude, longitude, db_type);
             System.out.println("Data:");
             System.out.println("Latitude: " + apd.lat);
             System.out.println("Longitude: " + apd.lon);
@@ -285,19 +285,19 @@ public class terminal {
             // create a system command
             System.out.println("Press any key to continue.");
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void show_gases_info() {
+    public void show_gases_info(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -321,7 +321,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             functional_layer.pollution_data_interface pollution_data = new functional_layer.source.pollution_data();
             functional_layer.pollution_data_interface.polution_data_struct apd = pollution_data.getPollutionData(
-                    latitude, longitude);
+                    latitude, longitude, db_type);
             System.out.println("Data:");
             System.out.println("Latitude: " + apd.lat);
             System.out.println("Longitude: " + apd.lon);
@@ -344,19 +344,19 @@ public class terminal {
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void show_air_pollution() {
+    public void show_air_pollution(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -380,7 +380,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             functional_layer.pollution_data_interface pollution_data = new functional_layer.source.pollution_data();
             functional_layer.pollution_data_interface.polution_data_struct apd = pollution_data.getPollutionData(
-                    latitude, longitude);
+                    latitude, longitude, db_type);
             System.out.println("Data:");
             System.out.println("Latitude: " + apd.lat);
             System.out.println("Longitude: " + apd.lon);
@@ -403,19 +403,19 @@ public class terminal {
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void generate_noti_poor_weather() {
+    public void generate_noti_poor_weather(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -439,7 +439,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             current_weather_interface cw = new functional_layer.source.current_weather();
             functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
-                    longitude);
+                    longitude, db_type);
             System.out.println("Weather:");
             // print in separate lines
             System.out.println("Longitude: " + cc.lon);
@@ -473,22 +473,22 @@ public class terminal {
             // create a system command
             System.out.println("Press any key to continue.");
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void show_weather_5days() {
+    public void show_weather_5days(String db_type) {
         functional_layer.five_days_forcast_interface fdf = null;
         fdf = new functional_layer.source.five_days_forcast();
 
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -510,7 +510,8 @@ public class terminal {
             }
             String latitude = locations.get(index - 1).latitude;
             String longitude = locations.get(index - 1).longitude;
-            functional_layer.five_days_forcast_interface.five_days_data fdd = fdf.get5DaysForcast(latitude, longitude);
+            functional_layer.five_days_forcast_interface.five_days_data fdd = fdf.get5DaysForcast(latitude, longitude,
+                    db_type);
             System.out.println("Data:");
             System.out.println("Latitude: " + fdd.lat);
             System.out.println("Longitude: " + fdd.lon);
@@ -544,21 +545,21 @@ public class terminal {
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
-            run();
+            run(db_type);
 
         }
 
     }
 
-    public void show_sunset_sunrise() {
+    public void show_sunset_sunrise(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -582,7 +583,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             current_weather_interface cw = new functional_layer.source.current_weather();
             functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
-                    longitude);
+                    longitude, db_type);
             // convert from string to long
             long sunriseUnixTimestamp = Long.parseLong(cc.sunrise);
             long sunsetUnixTimestamp = Long.parseLong(cc.sunset);
@@ -600,19 +601,19 @@ public class terminal {
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void show_feels_like() {
+    public void show_feels_like(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -636,7 +637,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             current_weather_interface cw = new functional_layer.source.current_weather();
             functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
-                    longitude);
+                    longitude, db_type);
             System.out.println("Data:");
             // print in separate lines
             System.out.println("Feels Like: " + cc.feels_like);
@@ -645,19 +646,19 @@ public class terminal {
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void show_curr_conditions() {
+    public void show_curr_conditions(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found. Please add a location first.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
-            run();
+            run(db_type);
         } else {
             System.out.println("Locations:");
             int i = 1;
@@ -681,7 +682,7 @@ public class terminal {
             String longitude = locations.get(index - 1).longitude;
             current_weather_interface cw = new functional_layer.source.current_weather();
             functional_layer.current_weather_interface.Current_Conditions cc = cw.getCurrentWeather(latitude,
-                    longitude);
+                    longitude, db_type);
             System.out.println("Current Weather Conditions:");
             // print in separate lines
             System.out.println("Longitude: " + cc.lon);
@@ -699,11 +700,11 @@ public class terminal {
             System.out.println("Press any key to continue.");
             // create a system command
             scanner.nextLine();
-            run();
+            run(db_type);
         }
     }
 
-    public void addLocationByCityAndCountryName() {
+    public void addLocationByCityAndCountryName(String db_type) {
         Scanner scn = new Scanner(System.in);
         System.out.println("Enter City Name: ");
         String city = scn.nextLine();
@@ -711,7 +712,7 @@ public class terminal {
         String country = scn.nextLine();
         Location_Interfaces lq = new functional_layer.source.locations_query();
         boolean flag = false;
-        flag = lq.addLocation_Names(city, country);
+        flag = lq.addLocation_Names(city, country, db_type);
         if (!flag) {
             System.out.println("Error in adding Location, please try again.");
         } else {
@@ -719,10 +720,10 @@ public class terminal {
         }
         System.out.println("Press any key to continue.");
         scn.nextLine();
-        run();
+        run(db_type);
     }
 
-    public void addLocationbyCoordinates() {
+    public void addLocationbyCoordinates(String db_type) {
         // add location by coordinates
         String lati;
         String lon;
@@ -733,27 +734,27 @@ public class terminal {
         lon = scn.nextLine();
         // scn.close();
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        boolean flag = lq.addLocation_Coordinates(lati, lon);
+        boolean flag = lq.addLocation_Coordinates(lati, lon, db_type);
         if (flag == false) {
             System.out.println("Error in adding Location, please try again.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
             // scanner.close();
-            run();
+            run(db_type);
         } else {
             System.out.println("Location added successfully.");
             System.out.println("Press any key to continue.");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
             // scanner.close();
-            run();
+            run(db_type);
         }
     }
 
-    public void display_locations() {
+    public void display_locations(String db_type) {
         Location_Interfaces lq = new functional_layer.source.locations_query();
-        java.util.List<location_save_interface.Locations> locations = lq.displayLocs();
+        java.util.List<location_save_interface.Locations> locations = lq.displayLocs(db_type);
         if (locations.size() == 0) {
             System.out.println("No locations found.");
         } else {
@@ -767,13 +768,13 @@ public class terminal {
         System.out.println("Press any key to continue.");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
-        run();
+        run(db_type);
     }
 
     // main for testing only
     public static void main(String[] args) {
         // call run method
         terminal terminal = new terminal();
-        terminal.run();
+        terminal.run("txt");
     }
 }
