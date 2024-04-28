@@ -34,7 +34,7 @@ public interface five_days_forcast_interface {
         public String dt_text;
     }
 
-    public abstract List<five_days_data> get5DaysstoredData();
+    public abstract List<five_days_data> get5DaysstoredData(String db_type);
 
-    public abstract five_days_data get5DaysForcast(String lati, String longi);
+    public abstract five_days_data get5DaysForcast(String lati, String longi, String db_type);
 }

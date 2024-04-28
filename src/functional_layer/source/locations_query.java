@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 
 public class locations_query implements Location_Interfaces {
 
-    public boolean addLocation_Coordinates(String lati, String longi) {
+    public boolean addLocation_Coordinates(String lati, String longi, String db_type) {
         // String apiKey = config.API_Key.getAPIKey();
         String geoKey = config.API_Key.getGeoLocAPIKey();
         boolean flag = false;
@@ -133,7 +133,7 @@ public class locations_query implements Location_Interfaces {
         return flag;
     }
 
-    public boolean addLocation_Names(String city, String country) {
+    public boolean addLocation_Names(String city, String country, String db_type) {
         // String apiKey = config.API_Key.getAPIKey();
         String geoKey = config.API_Key.getGeoLocAPIKey();
         String encodedQuery = null;
@@ -221,7 +221,7 @@ public class locations_query implements Location_Interfaces {
         return true;
     }
 
-    public List<Locations> displayLocs() {
+    public List<Locations> displayLocs(String db_type) {
         location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
         java.util.List<location_save_interface.Locations> locations = db_text_layer.getLocations();
 
@@ -231,7 +231,7 @@ public class locations_query implements Location_Interfaces {
     // main method for testing only
     public static void main(String[] args) {
         locations_query lq = new locations_query();
-        lq.addLocation_Coordinates("37.5497", "75.3436");
+        lq.addLocation_Coordinates("37.5497", "75.3436", "sql");
         // lq.addLocation_Names("Karachi", "Pakistan");
         // lq.displayLocs();
     }

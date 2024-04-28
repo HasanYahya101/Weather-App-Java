@@ -28,8 +28,8 @@ public interface pollution_data_interface {
         public String minutes;
     }
 
-    public abstract List<polution_data_struct> return_stored_pop_data();
+    public abstract List<polution_data_struct> return_stored_pop_data(String db_type);
 
-    public abstract polution_data_struct getPollutionData(String longi, String lati);
+    public abstract polution_data_struct getPollutionData(String longi, String lati, String db_type);
 
 }

@@ -14,7 +14,7 @@ import org.json.simple.JSONArray;
 
 public class current_weather implements current_weather_interface {
 
-    public Current_Conditions getCurrentWeather(String lati, String longi) {
+    public Current_Conditions getCurrentWeather(String lati, String longi, String db_type) {
         String apiKey = config.API_Key.getAPIKey();
         Current_Conditions cc = null;
         database_layer.textfile_module.source.current_conditions cc_db = new database_layer.textfile_module.source.current_conditions();
@@ -285,7 +285,7 @@ public class current_weather implements current_weather_interface {
         }
     }
 
-    public List<Current_Conditions> return_current_conditions() {
+    public List<Current_Conditions> return_current_conditions(String db_type) {
         database_layer.textfile_module.source.current_conditions cc_db = new database_layer.textfile_module.source.current_conditions();
         return cc_db.return_current_conditions();
     }
@@ -294,6 +294,6 @@ public class current_weather implements current_weather_interface {
     public static void main(String[] args) {
         current_weather cw = new current_weather();
         cw.getCurrentWeather("31.5656822",
-                "74.3141829");
+                "74.3141829", "sql");
     }
 }

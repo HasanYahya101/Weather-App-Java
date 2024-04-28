@@ -32,7 +32,7 @@ public interface current_weather_interface {
         public String minutes;
     }
 
-    public abstract Current_Conditions getCurrentWeather(String lati, String longi);
+    public abstract Current_Conditions getCurrentWeather(String lati, String longi, String db_type);
 
-    public abstract List<Current_Conditions> return_current_conditions();
+    public abstract List<Current_Conditions> return_current_conditions(String db_type);
 }

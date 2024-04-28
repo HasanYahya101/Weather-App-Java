@@ -18,7 +18,7 @@ import database_layer.textfile_module.source.five_days_save;
 public class five_days_forcast implements five_days_forcast_interface {
 
     @Override
-    public five_days_data get5DaysForcast(String longi, String lati) {
+    public five_days_data get5DaysForcast(String longi, String lati, String db_type) {
         String apiKey = config.API_Key.getAPIKey();
         five_days_data fdd = null;
 
@@ -315,7 +315,7 @@ public class five_days_forcast implements five_days_forcast_interface {
         return fdd;
     }
 
-    public List<five_days_data> get5DaysstoredData() {
+    public List<five_days_data> get5DaysstoredData(String db_type) {
         five_days_save fdss = new five_days_save();
         return fdss.read_Five_Days();
     }
@@ -323,6 +323,6 @@ public class five_days_forcast implements five_days_forcast_interface {
     // main function to test functionality
     public static void main(String[] args) {
         five_days_forcast fdf = new five_days_forcast();
-        fdf.get5DaysForcast("31.5656822", "74.3141829");
+        fdf.get5DaysForcast("31.5656822", "74.3141829", "sql");
     }
 }
