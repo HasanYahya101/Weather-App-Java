@@ -15,7 +15,7 @@ import org.json.simple.JSONArray;
 public class current_weather implements current_weather_interface {
 
     public Current_Conditions getCurrentWeather(String lati, String longi, String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             String apiKey = config.API_Key.getAPIKey();
             Current_Conditions cc = null;
             database_layer.textfile_module.source.current_conditions cc_db = new database_layer.textfile_module.source.current_conditions();
@@ -284,7 +284,7 @@ public class current_weather implements current_weather_interface {
                 return cc;
 
             }
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             String apiKey = config.API_Key.getAPIKey();
             Current_Conditions cc = null;
             database_layer.sql_module.source.current_conditions_save cc_db = new database_layer.sql_module.source.current_conditions_save();
@@ -536,6 +536,8 @@ public class current_weather implements current_weather_interface {
 
                     boolean flag2 = cc_db.saveCurrent_Conditions(cc);
 
+                    // System.out.println("Flag2: " + flag2);
+
                     if (flag2 == false) {
                         System.out.println("Error in saving the data");
                     }
@@ -558,10 +560,10 @@ public class current_weather implements current_weather_interface {
     }
 
     public List<Current_Conditions> return_current_conditions(String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             database_layer.textfile_module.source.current_conditions cc_db = new database_layer.textfile_module.source.current_conditions();
             return cc_db.return_current_conditions();
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             database_layer.sql_module.source.current_conditions_save cc_db = new database_layer.sql_module.source.current_conditions_save();
             return cc_db.return_current_conditions();
         }

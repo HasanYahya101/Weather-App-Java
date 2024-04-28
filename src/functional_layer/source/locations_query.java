@@ -19,7 +19,7 @@ public class locations_query implements Location_Interfaces {
 
     public boolean addLocation_Coordinates(String lati, String longi, String db_type) {
         boolean flag = false;
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             // String apiKey = config.API_Key.getAPIKey();
             String geoKey = config.API_Key.getGeoLocAPIKey();
             // get locs and check if lat and lon already exists
@@ -85,7 +85,7 @@ public class locations_query implements Location_Interfaces {
             } catch (IOException e) {
                 flag = false;
             }
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             // String apiKey = config.API_Key.getAPIKey();
             String geoKey = config.API_Key.getGeoLocAPIKey();
             // get locs and check if lat and lon already exists
@@ -160,7 +160,7 @@ public class locations_query implements Location_Interfaces {
     }
 
     public boolean addLocation_Names(String city, String country, String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             // String apiKey = config.API_Key.getAPIKey();
             String geoKey = config.API_Key.getGeoLocAPIKey();
             String encodedQuery = null;
@@ -248,7 +248,7 @@ public class locations_query implements Location_Interfaces {
                 }
             }
             return true;
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             // String apiKey = config.API_Key.getAPIKey();
             String geoKey = config.API_Key.getGeoLocAPIKey();
             String encodedQuery = null;
@@ -343,12 +343,12 @@ public class locations_query implements Location_Interfaces {
     }
 
     public List<Locations> displayLocs(String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             location_save_interface db_text_layer = new database_layer.textfile_module.source.location_save();
             java.util.List<location_save_interface.Locations> locations = db_text_layer.getLocations();
 
             return locations;
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             database_layer.sql_module.location_save_interface db_sql_layer = new database_layer.sql_module.source.location_save();
             java.util.List<location_save_interface.Locations> locations = db_sql_layer.getLocations();
 

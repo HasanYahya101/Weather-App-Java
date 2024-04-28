@@ -19,7 +19,7 @@ public class five_days_forcast implements five_days_forcast_interface {
 
     @Override
     public five_days_data get5DaysForcast(String longi, String lati, String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             String apiKey = config.API_Key.getAPIKey();
             five_days_data fdd = null;
 
@@ -314,7 +314,7 @@ public class five_days_forcast implements five_days_forcast_interface {
                 // return null;
             }
             return fdd;
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             String apiKey = config.API_Key.getAPIKey();
             five_days_data fdd = null;
 
@@ -614,10 +614,10 @@ public class five_days_forcast implements five_days_forcast_interface {
     }
 
     public List<five_days_data> get5DaysstoredData(String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             five_days_save fdss = new five_days_save();
             return fdss.read_Five_Days();
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             database_layer.sql_module.five_days_interface_save fdss = new database_layer.sql_module.source.five_days_save();
             return fdss.read_Five_Days();
         }

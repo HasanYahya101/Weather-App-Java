@@ -17,7 +17,7 @@ import database_layer.textfile_module.source.pollution_data_save;
 public class pollution_data implements pollution_data_interface {
 
     public polution_data_struct getPollutionData(String longi, String lati, String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             // save pollution data
             pollution_data_save save_data = new pollution_data_save();
             save_data.remove_pollution_cache();
@@ -194,7 +194,7 @@ public class pollution_data implements pollution_data_interface {
                 // return null;
             }
             return null;
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             // save pollution data
             database_layer.sql_module.pollution_data_save_interface save_data = new database_layer.sql_module.source.pollution_data_save();
             save_data.remove_pollution_cache();
@@ -376,10 +376,10 @@ public class pollution_data implements pollution_data_interface {
     }
 
     public List<polution_data_struct> return_stored_pop_data(String db_type) {
-        if (db_type == "txt") {
+        if (db_type.equals("txt")) {
             pollution_data_save save_data = new pollution_data_save();
             return save_data.get_all_data();
-        } else if (db_type == "sql") {
+        } else if (db_type.equals("sql")) {
             database_layer.sql_module.pollution_data_save_interface save_data = new database_layer.sql_module.source.pollution_data_save();
             return save_data.get_all_data();
         }
