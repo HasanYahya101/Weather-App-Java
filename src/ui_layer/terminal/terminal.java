@@ -775,6 +775,12 @@ public class terminal {
     public static void main(String[] args) {
         // call run method
         terminal terminal = new terminal();
-        terminal.run("txt");
+        String db_type;
+        // enter value
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the database type (txt or sql): ");
+        db_type = scanner.nextLine();
+        scanner.close();
+        terminal.run(db_type);
     }
 }
