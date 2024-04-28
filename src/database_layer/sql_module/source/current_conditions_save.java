@@ -26,7 +26,7 @@ public class current_conditions_save implements database_layer.sql_module.curren
                 Statement stmt = conn.createStatement();
 
                 // Insert data into Current_Conditions
-                String sql = "INSERT INTO Current_Conditions (id, lon, lat, main, description, icon, temp, feels_like, temp_min, temp_max, pressure, humidity, visibility, wind_speed, wind_deg, gust, clouds_all, sunrise, sunset, timezone, date, month, year, hour) VALUES ('"
+                String sql = "INSERT INTO Current_Conditions (id, lon, lat, main, description, icon, temp, feels_like, temp_min, temp_max, pressure, humidity, visibility, wind_speed, wind_deg, gust, clouds_all, sunrise, sunset, timezone, date, month, year, hour, minutes) VALUES ('"
                         + cc.id + "', '" + cc.lon + "', '" + cc.lat + "', '" + cc.main + "', '" + cc.description
                         + "', '"
                         + cc.icon + "', '" + cc.temp + "', '" + cc.feels_like + "', '" + cc.temp_min + "', '"
@@ -38,9 +38,19 @@ public class current_conditions_save implements database_layer.sql_module.curren
                         + "', '"
                         + cc.hour + "', '" + cc.minutes + "');";
                 stmt.execute(sql);
+
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
             flag = false;
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
         return flag;
     }
@@ -95,9 +105,18 @@ public class current_conditions_save implements database_layer.sql_module.curren
                 }
 
                 stmt.execute(sql);
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
 
         return return_data;
@@ -132,9 +151,27 @@ public class current_conditions_save implements database_layer.sql_module.curren
                         + "' AND month < '" + curr_month + "') OR (year = '" + curr_year + "' AND month = '"
                         + curr_month + "' AND date < '" + curr_date + "');";
                 stmt.execute(sql);
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
+    }
+
+    // main for testing only
+    public static void main(String[] args) {
+        current_conditions_save ccs = new current_conditions_save();
+        Current_Conditions cc = new Current_Conditions();
+
+        ccs.remove_prev_cache();
+
     }
 }

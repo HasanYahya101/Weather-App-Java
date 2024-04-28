@@ -70,10 +70,19 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                             + clouds_all + "', '" + sunrise + "', '" + sunset + "', '" + dt_text + "');";
                     stmt.execute(sql);
                 }
+                // close connection
+                conn.close();
 
             }
         } catch (SQLException e) {
             flag = false;
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
         return flag;
     }
@@ -141,10 +150,19 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                         stmt.execute(sql);
                     }
                 }
+                // close connection
+                conn.close();
 
             }
         } catch (SQLException e) {
             flag = false;
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
         return flag;
     }
@@ -229,8 +247,17 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                     }
 
                 }
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
             return fdl;
         }
         return fdl;
@@ -256,8 +283,17 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                         + " AND month < " + curr_month + ") OR (year = " + curr_year + " AND month = " + curr_month
                         + " AND date < " + curr_date + ");";
                 stmt.execute(sql);
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
             return;
         }
     }

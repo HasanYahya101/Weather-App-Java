@@ -33,10 +33,19 @@ public class location_save implements database_layer.sql_module.location_save_in
                         + "', '"
                         + date + "', '" + month + "', '" + year + "', '" + hour + "', '" + minutes + "');";
                 stmt.execute(sql);
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             flag = false;
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
 
         return flag;
@@ -74,9 +83,18 @@ public class location_save implements database_layer.sql_module.location_save_in
                     loc.Minutes = rs.getString("minutes");
                     return_data.add(loc);
                 }
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
             // System.out.println(e.getMessage());
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
 
         return return_data;

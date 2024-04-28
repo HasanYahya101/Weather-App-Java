@@ -35,9 +35,18 @@ public class pollution_data_save implements pollution_data_save_interface {
                         + "', '" + struct.pm2_5 + "', '" + struct.pm10 + "', '" + struct.hour + "', '" + struct.minutes
                         + "');";
                 stmt.execute(sql);
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
             flag = false;
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+            }
         }
         return flag;
     }
@@ -81,8 +90,18 @@ public class pollution_data_save implements pollution_data_save_interface {
                     data.minutes = rs.getString("minutes");
                     return_data.add(data);
                 }
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                // deal with error
+            }
         }
         return return_data;
     }
@@ -118,8 +137,50 @@ public class pollution_data_save implements pollution_data_save_interface {
                         + "' AND date < '" + curr_date + "');";
 
                 stmt.execute(sql);
+                // close connection
+                conn.close();
             }
         } catch (SQLException e) {
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                // deal with error
+            }
         }
+    }
+
+    // main for testing
+    public static void main(String[] args) {
+        pollution_data_save obj = new pollution_data_save();
+        polution_data_struct data = new polution_data_struct();
+        data.date = "1";
+        data.month = "1";
+        data.year = "2021";
+        data.lat = "1";
+        data.lon = "1";
+        data.aqi = "1";
+        data.dt = "1";
+        data.nh3 = "1";
+        data.co = "1";
+        data.no = "1";
+        data.no2 = "1";
+        data.o3 = "1";
+        data.so2 = "1";
+        data.pm2_5 = "1";
+        data.pm10 = "1";
+        data.hour = "1";
+        data.minutes = "1";
+        obj.savePollutionData(data);
+        // get all data and print it
+        List<polution_data_struct> all_data = obj.get_all_data();
+        for (polution_data_struct d : all_data) {
+            System.out.println(d.date + " " + d.month + " " + d.year + " " + d.lat + " " + d.lon + " " + d.aqi + " "
+                    + d.dt + " " + d.nh3 + " " + d.co + " " + d.no + " " + d.no2 + " " + d.o3 + " " + d.so2 + " "
+                    + d.pm2_5 + " " + d.pm10 + " " + d.hour + " " + d.minutes);
+        }
+        // obj.remove_pollution_cache();
     }
 }
