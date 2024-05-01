@@ -240,18 +240,116 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                 }
                 for (int i = 0; i < idList.size(); i++) {
                     int curr_id = idList.get(i);
+                    five_days_data fdd = new five_days_data();
+                    fdd.list = new ArrayList<five_days_struct>();
+
+                    String sql_fetch_by_id = "SELECT lon, lat, date, month, " +
+                            "year, hour, minutes, dt, temp, feels_like, temp_min, temp_max, pressure, humidity, weather, icon, visibility, wind_speed, wind_deg, gust, clouds_all, sunrise, sunset, dt_text FROM Forecast WHERE ID = "
+                            + curr_id + ";";
+                    // create a new statement
+                    Statement smtt2 = conn.createStatement();
+                    ResultSet rsData = smtt2.executeQuery(sql_fetch_by_id);
+                    // get number of rows
+                    int rowCountData = 0;
+                    /*
+                     * // this was causing the pointer to move to the end which ended up causing the
+                     * error because while wasn't executed
+                     * while (rsData.next()) {
+                     * rowCountData++;
+                     * }
+                     */
+                    System.out.println("Rows: " + rowCountData);
+                    while (rsData.next()) {
+                        five_days_struct fds = new five_days_struct();
+                        // get fdd values
+                        fdd.lon = rsData.getString("lon");
+                        fdd.lat = rsData.getString("lat");
+                        fdd.date = rsData.getString("date");
+                        fdd.month = rsData.getString("month");
+                        fdd.year = rsData.getString("year");
+                        fdd.hour = rsData.getString("hour");
+                        fdd.minutes = rsData.getString("minutes");
+                        // get struct data
+                        fds.dt = rsData.getString("dt");
+                        fds.temp = rsData.getString("temp");
+                        fds.feels_like = rsData.getString("feels_like");
+                        fds.temp_min = rsData.getString("temp_min");
+                        fds.temp_max = rsData.getString("temp_max");
+                        fds.pressure = rsData.getString("pressure");
+                        fds.humidity = rsData.getString("humidity");
+                        fds.weather = rsData.getString("weather");
+                        fds.icon = rsData.getString("icon");
+                        fds.visibility = rsData.getString("visibility");
+                        fds.wind_speed = rsData.getString("wind_speed");
+                        fds.wind_deg = rsData.getString("wind_deg");
+                        fds.gust = rsData.getString("gust");
+                        fds.clouds_all = rsData.getString("clouds_all");
+                        fds.sunrise = rsData.getString("sunrise");
+                        fds.sunset = rsData.getString("sunset");
+                        fds.dt_text = rsData.getString("dt_text");
+
+                        // print all these values for testing
+                        // System.out.println("lon: " + fdd.lon);
+                        // System.out.println("lat: " + fdd.lat);
+                        // System.out.println("date: " + fdd.date);
+                        // System.out.println("month: " + fdd.month);
+                        // System.out.println("year: " + fdd.year);
+                        // System.out.println("hour: " + fdd.hour);
+                        // System.out.println("minutes: " + fdd.minutes);
+                        // System.out.println("dt: " + fds.dt);
+                        // System.out.println("temp: " + fds.temp);
+                        // System.out.println("feels_like: " + fds.feels_like);
+                        // System.out.println("temp_min: " + fds.temp_min);
+                        // System.out.println("temp_max: " + fds.temp_max);
+                        // System.out.println("pressure: " + fds.pressure);
+                        // System.out.println("humidity: " + fds.humidity);
+                        // System.out.println("weather: " + fds.weather);
+                        // System.out.println("icon: " + fds.icon);
+                        // System.out.println("visibility: " + fds.visibility);
+                        // System.out.println("wind_speed: " + fds.wind_speed);
+                        // System.out.println("wind_deg: " + fds.wind_deg);
+                        // System.out.println("gust: " + fds.gust);
+                        // System.out.println("clouds_all: " + fds.clouds_all);
+                        // System.out.println("sunrise: " + fds.sunrise);
+                        // System.out.println("sunset: " + fds.sunset);
+                        // System.out.println("dt_text: " + fds.dt_text);
+
+                        // add to list
+                        fdd.list.add(fds);
+                    }
+                    // add to list
+                    fdl.add(fdd);
                 }
 
                 // close connection
                 conn.close();
+                return fdl;
             }
         } catch (SQLException e) {
+            // print e
+            System.out.println(e);
             // close connection if open
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException ex) {
+                // print ex
+                System.out.println(ex);
+                return fdl;
+            }
+        } catch (Exception e) {
+            // print e
+            System.out.println(e);
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                // print ex
+                System.out.println(ex);
+                return fdl;
             }
         }
         return fdl;
@@ -260,6 +358,6 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
     // main for testing only
     public static void main(String[] args) {
         five_days_save f = new five_days_save();
-        f.read_Five_Days();
+        f.delete_cache();
     }
 }
