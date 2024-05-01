@@ -275,6 +275,13 @@ public class desktop extends Application {
                     error = "City or Country Name is empty";
                     errorText.setText(error);
                     return;
+                } else if (lat__.matches(".*[a-zA-Z]+.*") || long__.matches(".*[a-zA-Z]+.*")) {
+                    // if it contains any alphabet
+                    System.out.println("Invalid Latitude or Longitude value");
+                    error = "Invalid Latitude or Longitude value";
+                    errorText.setText(error);
+                    return;
+
                 } else {
                     errorText.setText("");
                     flag = location.addLocation_Names(lat__, long__, db_type_given);
@@ -290,6 +297,7 @@ public class desktop extends Application {
         });
 
         cancel.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent event) {
                 popupStage.close();
