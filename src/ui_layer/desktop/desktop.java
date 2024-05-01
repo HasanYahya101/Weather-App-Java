@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.*;
 import javafx.scene.layout.Pane;
@@ -58,6 +59,22 @@ public class desktop extends Application {
     }
 
     public class Forcasts {
+        public String dt_text;
+        public String temp;
+        public String feels_like;
+        public String temp_min;
+        public String temp_max;
+        public String pressure;
+        public String humidity;
+        public String weather;
+        public String icon;
+        public String visibility;
+        public String wind_speed;
+        public String wind_deg;
+        public String gust;
+        public String clouds_all;
+        public String sunrise;
+        public String sunset;
     }
 
     @Override
@@ -110,6 +127,7 @@ public class desktop extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Search Weather Forcasts");
                 Location loc = showLocationsList(primaryStage, db);
+                show_five_day_forcast(primaryStage, loc, db);
             }
         });
         Button pollution_data = new Button("Check Pollution Data");
@@ -785,6 +803,73 @@ public class desktop extends Application {
                 warningStage.show();
             }
         }
+    }
+
+    public void show_five_day_forcast(Stage primaryStage, Location loc, String db_type) {
+        ArrayList<Forcasts> forecasts = new ArrayList<>();
+        functional_layer.five_days_forcast_interface.five_days_data data;
+        functional_layer.five_days_forcast_interface forecast = new functional_layer.source.five_days_forcast();
+        data = forecast.get5DaysForcast(loc.latitude, loc.longitude, db_type);
+
+        // set icon for title bar
+        Image img_icon = new Image(getClass().getResourceAsStream("assets\\\\title_bar_icon.png"));
+        primaryStage.getIcons().add(img_icon);
+
+        for (int i = 0; i < data.list.size(); i++) {
+            Forcasts temp = new Forcasts();
+            temp.dt_text = data.list.get(i).dt_text;
+            temp.temp = data.list.get(i).temp;
+            temp.feels_like = data.list.get(i).feels_like;
+            temp.temp_min = data.list.get(i).temp_min;
+            temp.temp_max = data.list.get(i).temp_max;
+            temp.pressure = data.list.get(i).pressure;
+            temp.humidity = data.list.get(i).humidity;
+            temp.weather = data.list.get(i).weather;
+            temp.icon = data.list.get(i).icon;
+            temp.visibility = data.list.get(i).visibility;
+            temp.wind_speed = data.list.get(i).wind_speed;
+            temp.wind_deg = data.list.get(i).wind_deg;
+            temp.gust = data.list.get(i).gust;
+            temp.clouds_all = data.list.get(i).clouds_all;
+            temp.sunrise = data.list.get(i).sunrise;
+            temp.sunset = data.list.get(i).sunset;
+            forecasts.add(temp);
+        }
+
+        // write a list of 20 on a scrollable window JTextArea
+        JFrame frame = new JFrame("Five Day Forecast");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextArea textArea = new JTextArea(20, 40);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
+        for (int i = 0; i < forecasts.size(); i++) {
+            textArea.append("--------------------------------------------------------------------\n");
+            textArea.append("             Date and Time: " + forecasts.get(i).dt_text + "\n");
+            textArea.append("             Temperature: " + forecasts.get(i).temp + "°C\n");
+            textArea.append("             Feels Like: " + forecasts.get(i).feels_like + "°C\n");
+            textArea.append("             Min Temperature: " + forecasts.get(i).temp_min + "°C\n");
+            textArea.append("             Max Temperature: " + forecasts.get(i).temp_max + "°C\n");
+            textArea.append("             Pressure: " + forecasts.get(i).pressure + " hPa\n");
+            textArea.append("             Humidity: " + forecasts.get(i).humidity + "%\n");
+            textArea.append("             Weather: " + forecasts.get(i).weather + "\n");
+            textArea.append("             Visibility: " + forecasts.get(i).visibility + " m\n");
+            textArea.append("             Wind Speed: " + forecasts.get(i).wind_speed + " m/s\n");
+            textArea.append("             Wind Degree: " + forecasts.get(i).wind_deg + "°\n");
+            textArea.append("             Gust: " + forecasts.get(i).gust + " m/s\n");
+            textArea.append("             Clouds: " + forecasts.get(i).clouds_all + "%\n");
+            textArea.append("             Sunrise: " + forecasts.get(i).sunrise + "\n");
+            textArea.append("             Sunset: " + forecasts.get(i).sunset + "\n");
+            textArea.append("--------------------------------------------------------------------\n");
+            textArea.append("\n\n\n");
+        }
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        frame.setSize(400, 600);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
