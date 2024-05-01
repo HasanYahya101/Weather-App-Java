@@ -11,10 +11,10 @@ import java.sql.Statement;
 
 public class table_initialization implements table_interface {
         public void create_tables() {
-                // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+                // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
                 Connection conn = null;
                 try {
-                        conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+                        conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
                         if (conn != null) {
                                 // System.out.println("Connection to Weather.db has been established.");
                                 // Create tables

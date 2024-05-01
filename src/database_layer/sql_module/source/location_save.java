@@ -18,7 +18,7 @@ public class location_save implements database_layer.sql_module.location_save_in
         // connect to sqlite
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
@@ -54,10 +54,10 @@ public class location_save implements database_layer.sql_module.location_save_in
     public List<Locations> getLocations() {
         List<Locations> return_data = new java.util.ArrayList<Locations>();
 
-        // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+        // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables

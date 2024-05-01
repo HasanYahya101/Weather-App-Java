@@ -17,7 +17,7 @@ public class pollution_data_save implements pollution_data_save_interface {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(
-                            "assets\\\\text_database\\\\Pollution.txt",
+                            "databases\\\\text_database\\\\Pollution.txt",
                             true));
             writer.write(struct.date + ", " + struct.month + ", " + struct.year + ", " + struct.lat + ", " + struct.lon
                     + ", " + struct.aqi + ", " + struct.dt + ", " + struct.nh3
@@ -37,7 +37,7 @@ public class pollution_data_save implements pollution_data_save_interface {
     public List<polution_data_struct> get_all_data() {
         List<polution_data_struct> return_data = new java.util.ArrayList<polution_data_struct>();
         // read file and return all data just as it was saved
-        String file_path = "assets\\\\text_database\\\\Pollution.txt";
+        String file_path = "databases\\\\text_database\\\\Pollution.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -94,7 +94,7 @@ public class pollution_data_save implements pollution_data_save_interface {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(
-                            "assets\\\\text_database\\\\Pollution.txt",
+                            "databases\\\\text_database\\\\Pollution.txt",
                             false));
             writer.write("");
             writer.close();

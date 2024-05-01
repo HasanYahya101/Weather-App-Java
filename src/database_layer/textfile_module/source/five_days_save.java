@@ -48,7 +48,7 @@ public class five_days_save implements five_days_interface_save {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(
-                            "assets\\\\text_database\\\\Five_Days.txt",
+                            "databases\\\\text_database\\\\Five_Days.txt",
                             true));
             writer.write(data_to_be_inserted);
             writer.newLine();
@@ -75,7 +75,7 @@ public class five_days_save implements five_days_interface_save {
         try {
             BufferedReader reader = new BufferedReader(
                     new FileReader(
-                            "assets\\\\text_database\\\\Five_Days.txt"));
+                            "databases\\\\text_database\\\\Five_Days.txt"));
             String line = reader.readLine();
             // five_days_struct fdd_struct = null;
             while (line != null && line.length() > 0) {
@@ -144,7 +144,7 @@ public class five_days_save implements five_days_interface_save {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(
-                            "assets\\\\text_database\\\\Five_Days.txt"));
+                            "databases\\\\text_database\\\\Five_Days.txt"));
             writer.write("");
             writer.close();
         } catch (IOException e) {

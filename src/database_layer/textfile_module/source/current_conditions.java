@@ -43,7 +43,7 @@ public class current_conditions implements current_conditions_interface {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(
-                            "assets\\\\text_database\\\\Current_Conditions.txt",
+                            "databases\\\\text_database\\\\Current_Conditions.txt",
                             true));
             writer.write(lon + "," + lat + "," + id + "," + main + "," + description + "," + icon + "," + temp + ","
                     + feels_like + "," + temp_min + "," + temp_max + "," + pressure + "," + humidity + "," + visibility
@@ -63,13 +63,13 @@ public class current_conditions implements current_conditions_interface {
         Current_Conditions cc = null;
         List<Current_Conditions> cc_list = null;
         // if Current_Conditions.txt file is empty
-        if (new java.io.File("assets\\\\text_database\\\\Current_Conditions.txt").length() == 0) {
+        if (new java.io.File("databases\\\\text_database\\\\Current_Conditions.txt").length() == 0) {
             return cc_list;
         } else {
             cc_list = new java.util.ArrayList<Current_Conditions>();
             // read from Current_Conditions.txt file
             try {
-                java.io.File file = new java.io.File("assets\\\\text_database\\\\Current_Conditions.txt");
+                java.io.File file = new java.io.File("databases\\\\text_database\\\\Current_Conditions.txt");
                 java.util.Scanner input = new java.util.Scanner(file);
                 while (input.hasNext()) {
                     String line = input.nextLine();
@@ -140,7 +140,7 @@ public class current_conditions implements current_conditions_interface {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(
-                            "assets\\\\text_database\\\\Current_Conditions.txt"));
+                            "databases\\\\text_database\\\\Current_Conditions.txt"));
             writer.write("");
             writer.close();
         } catch (IOException e) {

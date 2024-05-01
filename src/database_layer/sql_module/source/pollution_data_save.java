@@ -14,10 +14,10 @@ import java.sql.Statement;
 public class pollution_data_save implements pollution_data_save_interface {
     public boolean savePollutionData(polution_data_struct struct) {
         boolean flag = true;
-        // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+        // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
@@ -53,10 +53,10 @@ public class pollution_data_save implements pollution_data_save_interface {
 
     public List<polution_data_struct> get_all_data() {
         List<polution_data_struct> return_data = new java.util.ArrayList<polution_data_struct>();
-        // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+        // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
@@ -107,10 +107,10 @@ public class pollution_data_save implements pollution_data_save_interface {
     }
 
     public void remove_pollution_cache() {
-        // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+        // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables

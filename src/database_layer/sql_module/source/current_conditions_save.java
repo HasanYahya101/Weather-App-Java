@@ -16,7 +16,7 @@ public class current_conditions_save implements database_layer.sql_module.curren
         // connect to sqlite
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
@@ -57,10 +57,10 @@ public class current_conditions_save implements database_layer.sql_module.curren
 
     public List<Current_Conditions> return_current_conditions() {
         List<Current_Conditions> return_data = new java.util.ArrayList<Current_Conditions>();
-        // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+        // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
@@ -123,10 +123,10 @@ public class current_conditions_save implements database_layer.sql_module.curren
     }
 
     public void remove_prev_cache() {
-        // Connect to Weather.db on path assets\\\\sql_database\\\\Weather.db
+        // Connect to Weather.db on path databases\\\\sql_database\\\\Weather.db
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:assets\\\\sql_database\\\\Weather.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
                 // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
