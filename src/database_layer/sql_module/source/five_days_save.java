@@ -1,10 +1,12 @@
 package database_layer.sql_module.source;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Sqlite driver imports
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -167,124 +169,6 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
         return flag;
     }
 
-    public List<five_days_data> read_Five_Days() {
-        List<five_days_data> fdl = new java.util.ArrayList<five_days_data>();
-        // get max id from table
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
-            if (conn != null) {
-                // System.out.println("Connection to Weather.db has been established.");
-                // Initialise tables
-                table_initialization table = new table_initialization();
-                table.create_tables();
-                // initialize stmt
-                Statement stmt = conn.createStatement();
-                // get max id
-                String sql = "SELECT MAX(ID) FROM Forecast;";
-                stmt.execute(sql);
-                int id = stmt.getResultSet().getInt(1);
-                // Print id
-                // System.out.println(id);
-                if (id == 0) {
-                    return fdl;
-                } else {
-
-                    // get the data
-                    for (int i = 1; i <= id; i++) {
-                        // check if given id exists
-                        boolean exists = true;
-                        Statement stmt1 = conn.createStatement();
-                        sql = "SELECT * FROM Forecast WHERE ID = " + (i) + ";";
-                        stmt1.execute(sql);
-                        if (!stmt1.getResultSet().next()) {
-                            exists = false;
-                        }
-                        if (!exists) {
-                            continue;
-                        }
-                        // get the data
-                        five_days_data fdd = new five_days_data();
-                        fdd.list = new java.util.ArrayList<five_days_struct>();
-                        // get the values
-                        sql = "SELECT * FROM Forecast WHERE ID = " + (i) + ";";
-                        Statement stmt3 = conn.createStatement();
-                        stmt3.execute(sql);
-                        String lat = null;
-                        String lon = null;
-                        String date = null;
-                        String month = null;
-                        String year = null;
-                        String hour = null;
-                        String minutes = null;
-                        // loop over each tuple
-                        while (stmt3.getResultSet().next() != false) {
-                            fdd.lat = stmt3.getResultSet().getString("lat");
-                            lat = fdd.lat;
-                            fdd.lon = stmt3.getResultSet().getString("lon");
-                            lon = fdd.lon;
-                            fdd.date = stmt3.getResultSet().getString("date");
-                            date = fdd.date;
-                            fdd.month = stmt3.getResultSet().getString("month");
-                            month = fdd.month;
-                            fdd.year = stmt3.getResultSet().getString("year");
-                            year = fdd.year;
-                            fdd.hour = stmt3.getResultSet().getString("hour");
-                            hour = fdd.hour;
-                            fdd.minutes = stmt3.getResultSet().getString("minutes");
-                            minutes = fdd.minutes;
-                            // get the list
-                            five_days_struct list = new five_days_struct();
-                            list.dt = stmt3.getResultSet().getString("dt");
-                            list.temp = stmt3.getResultSet().getString("temp");
-                            list.feels_like = stmt3.getResultSet().getString("feels_like");
-                            list.temp_min = stmt3.getResultSet().getString("temp_min");
-                            list.temp_max = stmt3.getResultSet().getString("temp_max");
-                            list.pressure = stmt3.getResultSet().getString("pressure");
-                            list.humidity = stmt3.getResultSet().getString("humidity");
-                            list.weather = stmt3.getResultSet().getString("weather");
-                            list.icon = stmt3.getResultSet().getString("icon");
-                            list.visibility = stmt3.getResultSet().getString("visibility");
-                            list.wind_speed = stmt3.getResultSet().getString("wind_speed");
-                            list.wind_deg = stmt3.getResultSet().getString("wind_deg");
-                            list.gust = stmt3.getResultSet().getString("gust");
-                            list.clouds_all = stmt3.getResultSet().getString("clouds_all");
-                            list.sunrise = stmt3.getResultSet().getString("sunrise");
-                            list.sunset = stmt3.getResultSet().getString("sunset");
-                            list.dt_text = stmt3.getResultSet().getString("dt_text");
-                            fdd.list.add(list);
-
-                            // print all these values
-                            System.out.println(lat + " " + lon + " " + date + " " + month + " " + year + " " + hour
-                                    + " " + minutes + " " + list.dt + " " + list.temp + " " + list.feels_like + " "
-                                    + list.temp_min + " " + list.temp_max + " " + list.pressure + " " + list.humidity
-                                    + " "
-                                    + list.weather + " " + list.icon + " " + list.visibility + " " + list.wind_speed
-                                    + " "
-                                    + list.wind_deg + " " + list.gust + " " + list.clouds_all + " " + list.sunrise + " "
-                                    + list.sunset + " " + list.dt_text);
-                        }
-
-                        fdl.add(fdd);
-
-                    }
-                    // close connection
-                    conn.close();
-                }
-            }
-        } catch (SQLException e) {
-            // close connection if open
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-            }
-            return fdl;
-        }
-        return fdl;
-    }
-
     public void delete_cache() {
         Connection conn = null;
         try {
@@ -320,65 +204,62 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
         }
     }
 
-    // main for testing only
-    public static void main(String[] args) {
-        // save random data for testing
-        five_days_data fdd = new five_days_data();
-        fdd.list = new java.util.ArrayList<five_days_struct>();
+    public List<five_days_data> read_Five_Days() {
+        List<five_days_data> fdl = new java.util.ArrayList<five_days_data>();
+        List<Integer> idList = new ArrayList<>();
+        // get max id from table
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
+            if (conn != null) {
+                System.out.println("Connection to Weather.db has been established.");
+                // Initialise tables
+                table_initialization table = new table_initialization();
+                table.create_tables();
+                // initialize stmt
+                Statement stmt = conn.createStatement();
+                // get all distinct ids in Ascending order
+                String sql = "SELECT DISTINCT ID FROM Forecast ORDER BY ID ASC;";
+                stmt.execute(sql);
+                ResultSet rs = stmt.executeQuery(sql);
+                // iterate through the result set and count the rows
+                int rowCount = 0;
+                while (rs.next()) {
+                    rowCount++;
+                    int id = rs.getInt("ID");
+                    // print id
+                    // System.out.println("ID: " + id);
+                    idList.add(id);
 
-        fdd.date = "01";
-        fdd.month = "01";
-        fdd.year = "2021";
-        fdd.hour = "00";
-        fdd.minutes = "00";
-        fdd.lat = "0";
-        fdd.lon = "0";
-        fdd.list = new java.util.ArrayList<five_days_struct>();
-        for (int i = 0; i < 5; i++) {
-            five_days_struct list = new five_days_struct();
-            list.dt = "1612136400";
-            list.temp = "0";
-            list.feels_like = "0";
-            list.temp_min = "0";
-            list.temp_max = "0";
-            list.pressure = "0";
-            list.humidity = "0";
-            list.weather = "0";
-            list.icon = "0";
-            list.visibility = "0";
-            list.wind_speed = "0";
-            list.wind_deg = "0";
-            list.gust = "0";
-            list.clouds_all = "0";
-            list.sunrise = "0";
-            list.sunset = "0";
-            list.dt_text = "0";
-            fdd.list.add(list);
-        }
-        five_days_save f = new five_days_save();
-        f.save_Five_Days(fdd);
-        // now read data and print
-        List<five_days_data> fdl = f.read_Five_Days();
-        System.out.println(fdl.size());
-        for (int i = 0; i < fdl.size(); i++) {
-            five_days_data fdd1 = fdl.get(i);
-            System.out.println(fdd1.date + " " + fdd1.month + " " + fdd1.year + " " +
-                    fdd1.hour + " " + fdd1.minutes
-                    + " " + fdd1.lat + " " + fdd1.lon);
-            for (int j = 0; j < fdd1.list.size(); j++) {
-                five_days_struct list = fdd1.list.get(j);
-                System.out.println(list.dt + " " + list.temp + " " + list.feels_like + " " +
-                        list.temp_min + " "
-                        + list.temp_max + " " + list.pressure + " " + list.humidity + " " +
-                        list.weather + " "
-                        + list.icon + " " + list.visibility + " " + list.wind_speed + " " +
-                        list.wind_deg + " "
-                        + list.gust + " " + list.clouds_all + " " + list.sunrise + " " + list.sunset
-                        + " "
-                        + list.dt_text);
+                }
+                // print the number of rows
+                // System.out.println("Rows: " + rowCount);
+                if (rowCount == 0) {
+                    // no values in the database
+                    return fdl;
+                }
+                for (int i = 0; i < idList.size(); i++) {
+                    int curr_id = idList.get(i);
+                }
+
+                // close connection
+                conn.close();
+            }
+        } catch (SQLException e) {
+            // close connection if open
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
             }
         }
+        return fdl;
+    }
 
-        // delete cache
+    // main for testing only
+    public static void main(String[] args) {
+        five_days_save f = new five_days_save();
+        f.read_Five_Days();
     }
 }
