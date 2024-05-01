@@ -212,7 +212,7 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:databases\\\\sql_database\\\\Weather.db");
             if (conn != null) {
-                System.out.println("Connection to Weather.db has been established.");
+                // System.out.println("Connection to Weather.db has been established.");
                 // Initialise tables
                 table_initialization table = new table_initialization();
                 table.create_tables();
@@ -258,7 +258,7 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                      * rowCountData++;
                      * }
                      */
-                    System.out.println("Rows: " + rowCountData);
+                    // System.out.println("Rows: " + rowCountData);
                     while (rsData.next()) {
                         five_days_struct fds = new five_days_struct();
                         // get fdd values
