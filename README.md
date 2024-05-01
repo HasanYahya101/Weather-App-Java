@@ -1745,4 +1745,4 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ## Note:
 
-The Project is completly implemented in `VS Code` using Java Projects.
+The Project is completly implemented in `VS Code` using Java Projects. Moreover, all the `main` functions in each `.java` file are for testing the functions.
