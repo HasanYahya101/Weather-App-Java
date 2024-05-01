@@ -1,0 +1,121 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "current_conditions_save",
+            "request": "launch",
+            "mainClass": "database_layer.sql_module.source.current_conditions_save",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "five_days_save",
+            "request": "launch",
+            "mainClass": "database_layer.sql_module.source.five_days_save",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "location_save",
+            "request": "launch",
+            "mainClass": "database_layer.sql_module.source.location_save",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "pollution_data_save",
+            "request": "launch",
+            "mainClass": "database_layer.sql_module.source.pollution_data_save",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "table_initialization",
+            "request": "launch",
+            "mainClass": "database_layer.sql_module.source.table_initialization",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "current_conditions",
+            "request": "launch",
+            "mainClass": "database_layer.textfile_module.source.current_conditions",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "five_days_save(1)",
+            "request": "launch",
+            "mainClass": "database_layer.textfile_module.source.five_days_save",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "location_save(1)",
+            "request": "launch",
+            "mainClass": "database_layer.textfile_module.source.location_save",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "current_weather",
+            "request": "launch",
+            "mainClass": "functional_layer.source.current_weather",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "five_days_forcast",
+            "request": "launch",
+            "mainClass": "functional_layer.source.five_days_forcast",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "locations_query",
+            "request": "launch",
+            "mainClass": "functional_layer.source.locations_query",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "pollution_data",
+            "request": "launch",
+            "mainClass": "functional_layer.source.pollution_data",
+            "projectName": "Weather-App_1861330f"
+        },
+        {
+            "type": "java",
+            "name": "desktop",
+            "request": "launch",
+            "mainClass": "ui_layer.desktop.desktop",
+            "projectName": "Weather-App_1861330f",
+            "vmArgs": "--module-path C:/javafx/lib --add-modules javafx.controls,javafx.fxml",
+        },
+        {
+            "type": "java",
+            "name": "terminal",
+            "request": "launch",
+            "mainClass": "ui_layer.terminal.terminal",
+            "projectName": "Weather-App_1861330f"
+        }
+    ]
+}
