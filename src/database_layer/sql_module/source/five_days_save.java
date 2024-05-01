@@ -249,15 +249,7 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                     // create a new statement
                     Statement smtt2 = conn.createStatement();
                     ResultSet rsData = smtt2.executeQuery(sql_fetch_by_id);
-                    // get number of rows
-                    int rowCountData = 0;
-                    /*
-                     * // this was causing the pointer to move to the end which ended up causing the
-                     * error because while wasn't executed
-                     * while (rsData.next()) {
-                     * rowCountData++;
-                     * }
-                     */
+
                     // System.out.println("Rows: " + rowCountData);
                     while (rsData.next()) {
                         five_days_struct fds = new five_days_struct();
@@ -287,32 +279,6 @@ public class five_days_save implements database_layer.sql_module.five_days_inter
                         fds.sunrise = rsData.getString("sunrise");
                         fds.sunset = rsData.getString("sunset");
                         fds.dt_text = rsData.getString("dt_text");
-
-                        // print all these values for testing
-                        // System.out.println("lon: " + fdd.lon);
-                        // System.out.println("lat: " + fdd.lat);
-                        // System.out.println("date: " + fdd.date);
-                        // System.out.println("month: " + fdd.month);
-                        // System.out.println("year: " + fdd.year);
-                        // System.out.println("hour: " + fdd.hour);
-                        // System.out.println("minutes: " + fdd.minutes);
-                        // System.out.println("dt: " + fds.dt);
-                        // System.out.println("temp: " + fds.temp);
-                        // System.out.println("feels_like: " + fds.feels_like);
-                        // System.out.println("temp_min: " + fds.temp_min);
-                        // System.out.println("temp_max: " + fds.temp_max);
-                        // System.out.println("pressure: " + fds.pressure);
-                        // System.out.println("humidity: " + fds.humidity);
-                        // System.out.println("weather: " + fds.weather);
-                        // System.out.println("icon: " + fds.icon);
-                        // System.out.println("visibility: " + fds.visibility);
-                        // System.out.println("wind_speed: " + fds.wind_speed);
-                        // System.out.println("wind_deg: " + fds.wind_deg);
-                        // System.out.println("gust: " + fds.gust);
-                        // System.out.println("clouds_all: " + fds.clouds_all);
-                        // System.out.println("sunrise: " + fds.sunrise);
-                        // System.out.println("sunset: " + fds.sunset);
-                        // System.out.println("dt_text: " + fds.dt_text);
 
                         // add to list
                         fdd.list.add(fds);
