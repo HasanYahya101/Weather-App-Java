@@ -470,22 +470,24 @@ public class desktop extends Application {
         float humid = Float.parseFloat(current_conditions.humidity);
         float wind_speed_ = Float.parseFloat(current_conditions.wind_speed);
 
+        String main_lower_case = main.toLowerCase();
+
         boolean flag = false;
 
         if (tempe < 10 || humid > 80 || tempe > 30 || wind_speed_ > 30 || humid > 90
-                || current_conditions.main.contains("rain")
-                || current_conditions.main.contains("storm") || current_conditions.main.contains("snow")
-                || current_conditions.main.contains("hail")
-                || current_conditions.main.contains("thunderstorm") || current_conditions.main.contains("tornado")
-                || current_conditions.main.contains("hurricane")
-                || current_conditions.main.contains("tropical storm") || current_conditions.main.contains("cyclone")
-                || current_conditions.main.contains("blizzard")
-                || current_conditions.main.contains("dust") || current_conditions.main.contains("smoke")
-                || current_conditions.main.contains("fog")
-                || current_conditions.main.contains("mist") || current_conditions.main.contains("haze")
-                || current_conditions.main.contains("sand")
-                || current_conditions.main.contains("ash") || current_conditions.main.contains("squall")
-                || current_conditions.main.contains("tornado")) {
+                || main_lower_case.contains("rain")
+                || main_lower_case.contains("storm") || main_lower_case.contains("snow")
+                || main_lower_case.contains("hail")
+                || main_lower_case.contains("thunderstorm") || main_lower_case.contains("tornado")
+                || main_lower_case.contains("hurricane")
+                || main_lower_case.contains("tropical storm") || main_lower_case.contains("cyclone")
+                || main_lower_case.contains("blizzard")
+                || main_lower_case.contains("dust") || main_lower_case.contains("smoke")
+                || main_lower_case.contains("fog")
+                || main_lower_case.contains("mist") || main_lower_case.contains("haze")
+                || main_lower_case.contains("sand")
+                || main_lower_case.contains("ash") || main_lower_case.contains("squall")
+                || main_lower_case.contains("tornado")) {
             System.out.println("Poor Weather Conditions. Notification generated.");
             flag = true;
         }
