@@ -1,6 +1,9 @@
 package ui_layer.desktop;
 
 import java.util.Scanner;
+import java.util.concurrent.Semaphore;
+import java.util.List;
+import java.util.ArrayList;
 
 // import javafx libraries
 import javafx.application.*;
@@ -17,12 +20,35 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.awt.*;
+import javax.swing.*;
+// import mouse event
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 // import functional layer
 import functional_layer.Location_Interfaces;
 import functional_layer.source.locations_query;;
 
 public class desktop extends Application {
+    public class Location {
+        String city;
+        String country;
+        String latitude;
+        String longitude;
+
+        public Location(String city, String country, String latitude, String longitude) {
+            this.city = city;
+            this.country = country;
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+        @Override
+        public String toString() {
+            return city + ", " + country + " (" + latitude + ", " + longitude + ")";
+        }
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -60,6 +86,7 @@ public class desktop extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Search Weather Data");
+                Location loc = showLocationsList(primaryStage, db);
             }
         });
         Button forcasts = new Button("Check Weather Forcasts");
@@ -67,6 +94,7 @@ public class desktop extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Search Weather Forcasts");
+                Location loc = showLocationsList(primaryStage, db);
             }
         });
         Button pollution_data = new Button("Check Pollution Data");
@@ -74,6 +102,7 @@ public class desktop extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Search Pollution Data");
+                Location loc = showLocationsList(primaryStage, db);
             }
         });
         // set location on screen in the middle of the screen
@@ -344,6 +373,61 @@ public class desktop extends Application {
         Scene popupScene = new Scene(root, width, height);
         popupStage.setScene(popupScene);
         popupStage.show();
+    }
+
+    public Location showLocationsList(Stage primaryStage, String db_type) {
+        functional_layer.Location_Interfaces location = new locations_query();
+        List<database_layer.textfile_module.location_save_interface.Locations> locations = location
+                .displayLocs(db_type);
+
+        if (locations.size() == 0) {
+            JOptionPane.showMessageDialog(null, "No locations added, please add locations first.");
+            return null;
+        }
+
+        DefaultListModel<Location> listModel = new DefaultListModel<>();
+        for (database_layer.textfile_module.location_save_interface.Locations loc : locations) {
+            listModel.addElement(new Location(loc.city, loc.country, loc.latitude, loc.longitude));
+        }
+
+        JList<Location> list = new JList<>(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        list.setVisibleRowCount(5);
+
+        JScrollPane scrollPane = new JScrollPane(list);
+
+        // Create a semaphore to hold the selected location
+        Semaphore semaphore = new Semaphore(0);
+
+        // Listener for mouse click on the list
+        list.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    int index = list.locationToIndex(evt.getPoint());
+                    Location selectedLocation = listModel.getElementAt(index);
+                    semaphore.release(); // Release the semaphore
+                }
+            }
+        });
+
+        JFrame frame = new JFrame("Locations");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        frame.setSize(460, 200);
+        frame.setVisible(true);
+
+        try {
+            semaphore.acquire(); // Wait for user selection
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // print the selected location
+        System.out.println("Selected Location: " + list.getSelectedValue());
+        frame.dispose();
+        return list.getSelectedValue();
     }
 
     public static void main(String[] args) {

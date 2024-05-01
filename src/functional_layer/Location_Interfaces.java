@@ -16,6 +16,7 @@ class Locations {
 }
 
 public interface Location_Interfaces {
+
     // lati: latitude, longi: longitude which are parameters in API call.
     public abstract boolean addLocation_Coordinates(String lati, String longi, String db_type);
 
