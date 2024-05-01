@@ -32,10 +32,10 @@ import functional_layer.source.locations_query;;
 
 public class desktop extends Application {
     public class Location {
-        String city;
-        String country;
-        String latitude;
-        String longitude;
+        public String city;
+        public String country;
+        public String latitude;
+        public String longitude;
 
         public Location(String city, String country, String latitude, String longitude) {
             this.city = city;
@@ -48,6 +48,9 @@ public class desktop extends Application {
         public String toString() {
             return city + ", " + country + " (" + latitude + ", " + longitude + ")";
         }
+    }
+
+    public class Forcasts {
     }
 
     @Override
