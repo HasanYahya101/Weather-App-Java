@@ -771,7 +771,6 @@ public class desktop extends Application {
                 warningStage.show();
             }
         }
-
     }
 
     public static void main(String[] args) {
