@@ -18,7 +18,7 @@ public class desktop extends Application {
 
         String title = " Weather Desktop Application";
 
-        Image icon = new Image(getClass().getResourceAsStream("assets/title_bar_icon.png"));
+        Image icon = new Image(getClass().getResourceAsStream("assets\\\\title_bar_icon.png"));
         primaryStage.getIcons().add(icon);
         StackPane root = new StackPane();
         Scene scene = new Scene(root, width, height);
