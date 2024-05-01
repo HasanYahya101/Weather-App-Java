@@ -87,6 +87,7 @@ public class desktop extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Search Weather Data");
                 Location loc = showLocationsList(primaryStage, db);
+                showCurrent_Conditions(primaryStage, loc, db);
             }
         });
         Button forcasts = new Button("Check Weather Forcasts");
@@ -428,6 +429,195 @@ public class desktop extends Application {
         System.out.println("Selected Location: " + list.getSelectedValue());
         frame.dispose();
         return list.getSelectedValue();
+    }
+
+    public void showCurrent_Conditions(Stage primaryStage, Location loc, String db_type) {
+        // make a window
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.initOwner(primaryStage);
+        popupStage.setTitle(" Current Weather Conditions");
+
+        // add the title page icon
+        Image img_icon = new Image(getClass().getResourceAsStream("assets\\\\title_bar_icon.png"));
+        popupStage.getIcons().add(img_icon);
+
+        Pane root = new Pane();
+
+        functional_layer.current_weather_interface current = new functional_layer.source.current_weather();
+        functional_layer.current_weather_interface.Current_Conditions current_conditions = current
+                .getCurrentWeather(loc.latitude, loc.longitude, db_type);
+
+        String main = current_conditions.main;
+        String description = current_conditions.description;
+        String temp = current_conditions.temp;
+        String feels_like = current_conditions.feels_like;
+        String temp_min = current_conditions.temp_min;
+        String temp_max = current_conditions.temp_max;
+        String pressure = current_conditions.pressure;
+        String humidity = current_conditions.humidity;
+        String visibility = current_conditions.visibility;
+        String wind_speed = current_conditions.wind_speed;
+        String wind_deg = current_conditions.wind_deg;
+        String gust = current_conditions.gust;
+        String sunrise = current_conditions.sunrise;
+        String sunset = current_conditions.sunset;
+
+        // test if warning works
+        // float tempe = 40;
+        float tempe = Float.parseFloat(current_conditions.temp);
+        float humid = Float.parseFloat(current_conditions.humidity);
+        float wind_speed_ = Float.parseFloat(current_conditions.wind_speed);
+
+        boolean flag = false;
+
+        if (tempe < 10 || humid > 80 || tempe > 30 || wind_speed_ > 30 || humid > 90
+                || current_conditions.main.contains("rain")
+                || current_conditions.main.contains("storm") || current_conditions.main.contains("snow")
+                || current_conditions.main.contains("hail")
+                || current_conditions.main.contains("thunderstorm") || current_conditions.main.contains("tornado")
+                || current_conditions.main.contains("hurricane")
+                || current_conditions.main.contains("tropical storm") || current_conditions.main.contains("cyclone")
+                || current_conditions.main.contains("blizzard")
+                || current_conditions.main.contains("dust") || current_conditions.main.contains("smoke")
+                || current_conditions.main.contains("fog")
+                || current_conditions.main.contains("mist") || current_conditions.main.contains("haze")
+                || current_conditions.main.contains("sand")
+                || current_conditions.main.contains("ash") || current_conditions.main.contains("squall")
+                || current_conditions.main.contains("tornado")) {
+            System.out.println("Poor Weather Conditions. Notification generated.");
+            flag = true;
+        }
+
+        int yOffset = 50; // Initial Y offset
+
+        Text mainText = new Text(main + " (" + description + ")");
+        mainText.setLayoutX(50);
+        mainText.setLayoutY(yOffset + 17 - 20);
+        mainText.setStyle("-fx-font-weight: bold;");
+        yOffset += 30;
+
+        Text tempText = new Text("Temperature: " + temp + "°C");
+        tempText.setLayoutX(50);
+        tempText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text feels_likeText = new Text("Feels Like: " + feels_like + "°C");
+        feels_likeText.setLayoutX(50);
+        feels_likeText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text temp_minText = new Text("Min Temperature: " + temp_min + "°C");
+        temp_minText.setLayoutX(50);
+        temp_minText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text temp_maxText = new Text("Max Temperature: " + temp_max + "°C");
+        temp_maxText.setLayoutX(50);
+        temp_maxText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text pressureText = new Text("Pressure: " + pressure + " hPa");
+        pressureText.setLayoutX(50);
+        pressureText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text humidityText = new Text("Humidity: " + humidity + "%");
+        humidityText.setLayoutX(50);
+        humidityText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text visibilityText = new Text("Visibility: " + visibility + " m");
+        visibilityText.setLayoutX(50);
+        visibilityText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text wind_speedText = new Text("Wind Speed: " + wind_speed + " m/s");
+        wind_speedText.setLayoutX(50);
+        wind_speedText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text wind_degText = new Text("Wind Degree: " + wind_deg + "°");
+        wind_degText.setLayoutX(50);
+        wind_degText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text gustText = new Text("Gust: " + gust + " m/s");
+        gustText.setLayoutX(50);
+        gustText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text sunriseText = new Text("Sunrise: " + sunrise);
+        sunriseText.setLayoutX(50);
+        sunriseText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text sunsetText = new Text("Sunset: " + sunset);
+        sunsetText.setLayoutX(50);
+        sunsetText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        root.getChildren().add(mainText);
+        root.getChildren().add(tempText);
+        root.getChildren().add(feels_likeText);
+        root.getChildren().add(temp_minText);
+        root.getChildren().add(temp_maxText);
+        root.getChildren().add(pressureText);
+        root.getChildren().add(humidityText);
+        root.getChildren().add(visibilityText);
+        root.getChildren().add(wind_speedText);
+        root.getChildren().add(wind_degText);
+        root.getChildren().add(gustText);
+        root.getChildren().add(sunriseText);
+        root.getChildren().add(sunsetText);
+
+        int width = 400;
+        int height = 450;
+
+        Scene popupScene = new Scene(root, width, height);
+        popupStage.setScene(popupScene);
+        popupStage.show();
+
+        // create a warning popup if flag is true
+        if (flag) {
+            Stage warningStage = new Stage();
+            warningStage.initModality(Modality.APPLICATION_MODAL);
+            warningStage.initOwner(primaryStage);
+            warningStage.setTitle(" Warning");
+
+            // add the title page icon
+            Image img_icon_warning = new Image(getClass().getResourceAsStream("assets\\\\title_bar_icon.png"));
+            warningStage.getIcons().add(img_icon_warning);
+
+            Pane root_warning = new Pane();
+
+            Text warningText = new Text("Poor Weather Conditions. Please take necessary precautions.");
+            // centre text
+            warningText.setLayoutX(50);
+            warningText.setLayoutY(50 + 17 - 20);
+            warningText.setStyle("-fx-font-weight: bold;");
+
+            Button close = new Button("Close");
+            close.setLayoutX(50 + 160);
+            close.setLayoutY(100);
+
+            close.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    warningStage.close();
+                }
+            });
+
+            root_warning.getChildren().add(warningText);
+            root_warning.getChildren().add(close);
+
+            int width_warning = 500;
+            int height_warning = 100;
+
+            Scene popupScene_warning = new Scene(root_warning, width_warning, height_warning);
+            warningStage.setScene(popupScene_warning);
+            warningStage.show();
+        }
     }
 
     public static void main(String[] args) {
