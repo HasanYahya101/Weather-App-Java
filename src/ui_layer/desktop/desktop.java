@@ -25,6 +25,13 @@ import javax.swing.*;
 // import mouse event
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 // import functional layer
 import functional_layer.Location_Interfaces;
@@ -56,6 +63,10 @@ public class desktop extends Application {
     @Override
     public void start(Stage primaryStage) {
         run(primaryStage, "sql");
+    }
+
+    private static LocalDateTime unixTimestampToLocalDateTime(long unixTimestamp) {
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp), ZoneId.of("UTC"));
     }
 
     public void run(Stage primaryStage, String db_type) {
