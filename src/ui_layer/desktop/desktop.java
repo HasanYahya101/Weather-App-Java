@@ -104,6 +104,7 @@ public class desktop extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Search Pollution Data");
                 Location loc = showLocationsList(primaryStage, db);
+                showPop_data(primaryStage, loc, db);
             }
         });
         // set location on screen in the middle of the screen
@@ -618,6 +619,157 @@ public class desktop extends Application {
             warningStage.setScene(popupScene_warning);
             warningStage.show();
         }
+    }
+
+    public void showPop_data(Stage primaryStage, Location loc, String db_type) {
+        // make a window
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.initOwner(primaryStage);
+        popupStage.setTitle(" Pollution Data");
+
+        // add the title page icon
+        Image img_icon = new Image(getClass().getResourceAsStream("assets\\\\title_bar_icon.png"));
+        popupStage.getIcons().add(img_icon);
+
+        Pane root = new Pane();
+
+        functional_layer.pollution_data_interface pollution = new functional_layer.source.pollution_data();
+        functional_layer.pollution_data_interface.polution_data_struct pollution_data = pollution.getPollutionData(
+                loc.latitude,
+                loc.longitude, db_type);
+
+        String aqi = pollution_data.aqi;
+        String co = pollution_data.co;
+        String no = pollution_data.no;
+        String no2 = pollution_data.no2;
+        String o3 = pollution_data.o3;
+        String so2 = pollution_data.so2;
+        String pm2_5 = pollution_data.pm2_5;
+        String pm10 = pollution_data.pm10;
+        String nh3 = pollution_data.nh3;
+
+        int yOffset = 50; // Initial Y offset
+
+        Text aqiText = new Text("AQI: " + aqi);
+        aqiText.setLayoutX(50);
+        aqiText.setLayoutY(yOffset + 17 - 20);
+        aqiText.setStyle("-fx-font-weight: bold;");
+        yOffset += 30;
+
+        Text coText = new Text("CO: " + co + " µg/m³");
+        coText.setLayoutX(50);
+        coText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text noText = new Text("NO: " + no + " µg/m³");
+        noText.setLayoutX(50);
+        noText.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text no2Text = new Text("NO2: " + no2 + " µg/m³");
+        no2Text.setLayoutX(50);
+        no2Text.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text o3Text = new Text("O3: " + o3 + " µg/m³");
+        o3Text.setLayoutX(50);
+        o3Text.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text so2Text = new Text("SO2: " + so2 + " µg/m³");
+        so2Text.setLayoutX(50);
+        so2Text.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text pm2_5Text = new Text("PM2.5: " + pm2_5 + " µg/m³");
+        pm2_5Text.setLayoutX(50);
+        pm2_5Text.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text pm10Text = new Text("PM10: " + pm10 + " µg/m³");
+        pm10Text.setLayoutX(50);
+        pm10Text.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        Text nh3Text = new Text("NH3: " + nh3 + " µg/m³");
+        nh3Text.setLayoutX(50);
+        nh3Text.setLayoutY(yOffset + 17 - 20);
+        yOffset += 30;
+
+        root.getChildren().add(aqiText);
+        root.getChildren().add(coText);
+        root.getChildren().add(noText);
+        root.getChildren().add(no2Text);
+        root.getChildren().add(o3Text);
+        root.getChildren().add(so2Text);
+        root.getChildren().add(pm2_5Text);
+        root.getChildren().add(pm10Text);
+        root.getChildren().add(nh3Text);
+
+        int width = 200;
+        int height = 340;
+
+        Scene popupScene = new Scene(root, width, height);
+        popupStage.setScene(popupScene);
+        popupStage.show();
+
+        if (!aqi.equals("null")) {
+
+            boolean flag = false;
+
+            float aqi_val = Float.parseFloat(aqi);
+
+            if (aqi_val > 300) {
+                System.out.println("Poor Air Quality. Notification generated.");
+                flag = true;
+            }
+
+            // create a warning popup if flag is true
+            String warning_message = "Poor Air Quality (AQI = " + Float.toString(aqi_val)
+                    + "). Please take necessary precautions.";
+
+            if (flag) {
+                Stage warningStage = new Stage();
+                warningStage.initModality(Modality.APPLICATION_MODAL);
+                warningStage.initOwner(primaryStage);
+                warningStage.setTitle(" Warning");
+
+                // add the title page icon
+                Image img_icon_warning = new Image(getClass().getResourceAsStream("assets\\\\title_bar_icon.png"));
+                warningStage.getIcons().add(img_icon_warning);
+
+                Pane root_warning = new Pane();
+
+                Text warningText = new Text(warning_message);
+                // centre text
+                warningText.setLayoutX(50);
+                warningText.setLayoutY(50 + 17 - 20);
+                warningText.setStyle("-fx-font-weight: bold;");
+
+                Button close = new Button("Close");
+                close.setLayoutX(50 + 160);
+                close.setLayoutY(100);
+
+                close.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        warningStage.close();
+                    }
+                });
+
+                root_warning.getChildren().add(warningText);
+                root_warning.getChildren().add(close);
+
+                int width_warning = 500;
+                int height_warning = 100;
+
+                Scene popupScene_warning = new Scene(root_warning, width_warning, height_warning);
+                warningStage.setScene(popupScene_warning);
+                warningStage.show();
+            }
+        }
+
     }
 
     public static void main(String[] args) {
