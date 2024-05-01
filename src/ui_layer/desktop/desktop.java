@@ -1,35 +1,26 @@
 package ui_layer.desktop;
 
-import java.util.Random;
-
 // import javafx libraries
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.*;
 
 public class desktop extends Application {
     @Override
     public void start(Stage primaryStage) {
-        // Generate random dimensions
-        Random random = new Random();
-        int width = random.nextInt(800) + 200; // Width between 200 and 1000
-        int height = random.nextInt(600) + 200; // Height between 200 and 800
+        int width = 1000;
+        int height = 600;
 
-        // Generate random title
-        String[] titles = { "Hello World!", "Random Window", "JavaFX Demo", "My App", "Custom Title" };
-        String title = titles[random.nextInt(titles.length)];
+        String title = " Weather Desktop Application";
 
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(event -> System.out.println("Hello World!"));
-
+        Image icon = new Image(getClass().getResourceAsStream("assets/title_bar_icon.png"));
+        primaryStage.getIcons().add(icon);
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
-
         Scene scene = new Scene(root, width, height);
 
         primaryStage.setTitle(title);
