@@ -8,15 +8,16 @@
             "type": "java",
             "name": "Current File",
             "request": "launch",
-            "mainClass": "${file}"
-
+            "mainClass": "${file}",
+            "vmArgs": "--module-path C:/javafx/lib --add-modules javafx.controls,javafx.fxml",
         },
         {
             "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "Weather-App_1861330f"
+            "projectName": "Weather-App_1861330f",
+            "vmArgs": "--module-path C:/javafx/lib --add-modules javafx.controls,javafx.fxml",
         },
         {
             "type": "java",
