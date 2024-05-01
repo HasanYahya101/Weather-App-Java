@@ -55,20 +55,38 @@ public class desktop extends Application {
                 showAddLocationPopup_Coord(primaryStage, db);
             }
         });
-        Button button_search = new Button("Search Weather Data");
+        Button button_search = new Button("Check Weather Data");
         button_search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Search Weather Data");
             }
         });
+        Button forcasts = new Button("Check Weather Forcasts");
+        forcasts.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Search Weather Forcasts");
+            }
+        });
+        Button pollution_data = new Button("Check Pollution Data");
+        pollution_data.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Search Pollution Data");
+            }
+        });
         // set location on screen in the middle of the screen
         button_names.setLayoutX(width / 2 - 158);
-        button_names.setLayoutY(height / 2 - 50);
+        button_names.setLayoutY(height / 2 - 50 - 100 + 30);
         button_coord.setLayoutX(width / 2 - 158);
-        button_coord.setLayoutY(height / 2 + 20);
+        button_coord.setLayoutY(height / 2 + 20 - 100 + 30);
         button_search.setLayoutX(width / 2 - 158);
-        button_search.setLayoutY(height / 2 + 90);
+        button_search.setLayoutY(height / 2 + 90 - 100 + 30);
+        forcasts.setLayoutX(width / 2 - 158);
+        forcasts.setLayoutY(height / 2 + 160 - 100 + 30);
+        pollution_data.setLayoutX(width / 2 - 158);
+        pollution_data.setLayoutY(height / 2 + 230 - 100 + 30);
 
         button_names.setPrefHeight(47);
         button_names.setPrefWidth(316);
@@ -76,16 +94,22 @@ public class desktop extends Application {
         button_coord.setPrefWidth(316);
         button_search.setPrefHeight(47);
         button_search.setPrefWidth(316);
+        forcasts.setPrefHeight(47);
+        forcasts.setPrefWidth(316);
+        pollution_data.setPrefHeight(47);
+        pollution_data.setPrefWidth(316);
 
         button_names.setFont(javafx.scene.text.Font.font("Cambria", 18));
         button_coord.setFont(javafx.scene.text.Font.font("Cambria", 18));
         button_search.setFont(javafx.scene.text.Font.font("Cambria", 18));
+        forcasts.setFont(javafx.scene.text.Font.font("Cambria", 18));
+        pollution_data.setFont(javafx.scene.text.Font.font("Cambria", 18));
 
         Text text = new Text();
         text.setText("Weather Application");
         text.setFont(javafx.scene.text.Font.font("Cambria", 30));
         text.setLayoutX(width / 2 - 150 + 20);
-        text.setLayoutY(125);
+        text.setLayoutY(125 - 30);
 
         Pane root = new Pane();
         Scene scene = new Scene(root, width, height);
@@ -101,6 +125,8 @@ public class desktop extends Application {
         root.getChildren().add(button_coord);
         root.getChildren().add(button_search);
         root.getChildren().add(text);
+        root.getChildren().add(forcasts);
+        root.getChildren().add(pollution_data);
 
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
