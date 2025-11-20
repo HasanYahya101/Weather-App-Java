@@ -1,3 +1,8 @@
+
+# Introduction:
+
+A Java based Weather Application that is implemented as a layered architecture project. This app demonstrates architectural concepts by supporting two interchangeable UIs and two database backends, unified by a single functional layer.
+
 ## System Architecture:
 
 <img width="2048" height="1070" alt="sys-arch" src="https://github.com/user-attachments/assets/9efda8b7-4a7f-4cba-97f9-f84b5667f3b6" />
