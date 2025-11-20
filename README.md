@@ -1,6 +1,7 @@
 ## System Architecture:
 
-<img width="1280" height="669" alt="sys-arch" src="https://github.com/user-attachments/assets/55996c8f-1b12-4dff-b93e-b29921bcbfb4" />
+<img width="2048" height="1070" alt="sys-arch" src="https://github.com/user-attachments/assets/9efda8b7-4a7f-4cba-97f9-f84b5667f3b6" />
+
 
 
 
