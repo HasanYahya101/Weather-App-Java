@@ -1,7 +1,7 @@
 
 # Introduction:
 
-A Java based Weather Application that is implemented as a layered architecture. This app demonstrates architectural concepts by supporting two interchangeable UIs and two database backends, unified by a single functional layer.
+A Java based Weather Application that is implemented as a Layered Architecture. This app demonstrates architectural concepts by supporting two interchangeable UIs and two database backends, unified by a single functional layer.
 
 ## System Architecture:
 
