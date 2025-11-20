@@ -1,3 +1,9 @@
+## System Architecture:
+
+<img width="1280" height="669" alt="sys-arch" src="https://github.com/user-attachments/assets/55996c8f-1b12-4dff-b93e-b29921bcbfb4" />
+
+
+
 ## Config Keys:
 
 Create a file named `config.properties` similar to the `example.config.properties` in the root folder of the project. Then insert values similar to this example for both API's. First is for OpenWeatherMap API and Second is `geoapify.com` API Key.
